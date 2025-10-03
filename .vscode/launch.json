@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "LoadingScreen",
+            "request": "launch",
+            "mainClass": "InkEra/inkera.splashscreen.LoadingScreen",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CustomRadioButtonExample",
+            "request": "launch",
+            "mainClass": "InkEra/deneme.CustomRadioButtonExample",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "DrawingApp",
+            "request": "launch",
+            "mainClass": "InkEra/deneme.DrawingApp",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "MainMenuFrame",
+            "request": "launch",
+            "mainClass": "InkEra/inkera.main.MainMenuFrame",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "LoadingScreen",
+            "request": "launch",
+            "mainClass": "InkEra/inkera.splashscreen.LoadingScreen",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "ChangePasswordDialog",
+            "request": "launch",
+            "mainClass": "InkEra/inkera.ui.account.ChangePasswordDialog",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "ForgotPasswordDialog",
+            "request": "launch",
+            "mainClass": "InkEra/inkera.ui.account.ForgotPasswordDialog",
+            "projectName": "InkEra"
+        },
+        {
+            "type": "java",
+            "name": "SignUpDialog",
+            "request": "launch",
+            "mainClass": "InkEra/inkera.ui.account.SignUpDialog",
+            "projectName": "InkEra"
+        }
+    ]
+}
