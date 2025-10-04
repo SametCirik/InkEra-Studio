@@ -2,7 +2,6 @@ package inkera.ui.titlebars;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,7 +15,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -137,9 +135,11 @@ public class MainMenuTitleBar extends JPanel {
         
         // DÜZELTME: Hover efekti eklendi
         button.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseEntered(MouseEvent evt) {
 				if (!"X".equals(button.getText())) button.setBackground(Color.decode("#4F4F4F"));
 			}
+			@Override
 			public void mouseExited(MouseEvent evt) {
 				if (!"X".equals(button.getText())) button.setBackground(MainMenuTitleBar.this.getBackground());
 			}

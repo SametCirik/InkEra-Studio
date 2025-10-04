@@ -2,14 +2,15 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
+    "version": "0.0.01",
+    
     "configurations": [
         {
             "type": "java",
-            "name": "LoadingScreen",
-            "request": "launch",
-            "mainClass": "InkEra/inkera.splashscreen.LoadingScreen",
-            "projectName": "InkEra"
+            "request": "attach",
+            "name": "Java",
+            "port": 5005,
+            "sourceRoots": []
         },
         {
             "type": "java",
@@ -22,49 +23,62 @@
             "name": "CustomRadioButtonExample",
             "request": "launch",
             "mainClass": "InkEra/deneme.CustomRadioButtonExample",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         },
         {
             "type": "java",
             "name": "DrawingApp",
             "request": "launch",
             "mainClass": "InkEra/deneme.DrawingApp",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         },
         {
             "type": "java",
             "name": "MainMenuFrame",
             "request": "launch",
             "mainClass": "InkEra/inkera.main.MainMenuFrame",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         },
         {
             "type": "java",
             "name": "LoadingScreen",
             "request": "launch",
             "mainClass": "InkEra/inkera.splashscreen.LoadingScreen",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         },
         {
             "type": "java",
             "name": "ChangePasswordDialog",
             "request": "launch",
             "mainClass": "InkEra/inkera.ui.account.ChangePasswordDialog",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         },
         {
             "type": "java",
             "name": "ForgotPasswordDialog",
             "request": "launch",
             "mainClass": "InkEra/inkera.ui.account.ForgotPasswordDialog",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         },
         {
             "type": "java",
             "name": "SignUpDialog",
             "request": "launch",
             "mainClass": "InkEra/inkera.ui.account.SignUpDialog",
-            "projectName": "InkEra"
+            "projectName": "_51mpl3_Dr4w1n6"
         }
+    ]
+
+    ,
+    "java.configuration.runtimes": [
+            {
+                "name": "JavaSE-17",
+                "path": "D:\\Program Files\\Java\\jdk-17.0.14",
+                "default": true
+            },
+            {
+                "name": "JavaSE-21",
+                "path": "D:\\Program Files\\Java\\jdk-21"
+            }
     ]
 }

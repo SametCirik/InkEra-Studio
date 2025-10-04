@@ -20,8 +20,14 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -46,8 +52,8 @@ public final class MainMenuPanelsKit {
 	// =================================================================================
 	public static class IdlePanel extends JPanel 
 	{
-		private JLabel idleTitleLabel;
-		private Languages languageManager;
+		private final JLabel idleTitleLabel;
+		private final Languages languageManager;
 
 		public IdlePanel(MainMenuFrame parentFrame, Languages langManager) 
 		{
@@ -68,7 +74,7 @@ public final class MainMenuPanelsKit {
             updateTexts();
 		}
 
-		public void updateTexts() {
+	public final void updateTexts() {
 			if (idleTitleLabel != null && languageManager != null) 
 			{
                 // DÜZELTME: AccountManager'dan giriş yapan kullanıcıyı kontrol et.
@@ -94,10 +100,10 @@ public final class MainMenuPanelsKit {
 	// GalleryPanel Sınıfı
 	// =================================================================================
 	public static class GalleryPanel extends JPanel { 
-		private JPanel projectPreviewsContainer;
-		private Languages languageManager;
-		private JButton newImageButton;
-		private MainMenuFrame parentFrame;
+		private final JPanel projectPreviewsContainer;
+		private final Languages languageManager;
+		private final JButton newImageButton;
+		private final MainMenuFrame parentFrame;
 
 		private static final String PROJECTS_DIRECTORY = System.getProperty("user.home") + File.separator + "InkEraProjects";
 		private static final String THUMBNAIL_SUFFIX = "_thumb.png";
@@ -163,12 +169,9 @@ public final class MainMenuPanelsKit {
 			refreshGallery(); // Galeriyi mevcut projelerle doldur
 		}
 
-		private void printBorder(String west) {
-			// TODO Auto-generated method stub
-			
-		}
+		// printBorder removed — unused helper
 
-		public void refreshGallery() {
+	public final void refreshGallery() {
 			if (projectPreviewsContainer == null) return;
 			projectPreviewsContainer.removeAll(); // Önceki önizlemeleri temizle
 
@@ -186,13 +189,20 @@ public final class MainMenuPanelsKit {
 				// Projeler varsa, thumbnail'ları göstermek için GridLayout'a geri dön
 				projectPreviewsContainer.setLayout(new GridLayout(0, 3, 15, 15)); 
 				for (ProjectInfo proj : projects) {
-					ProjectPreviewComponent previewComp = new ProjectPreviewComponent(proj);
+					ProjectPreviewComponent previewComp = new ProjectPreviewComponent(proj, parentFrame, languageManager);
 					previewComp.addMouseListener(new MouseAdapter() {
 					    @Override
 					    public void mouseClicked(MouseEvent e) {
 					        System.out.println("Opening project: " + proj.getProjectName() + " from path: " + proj.getProjectFilePath());
-					        // TODO: Projeyi açma ve çizim penceresini açma mantığını buraya ekle
-					        // parentFrame.openDrawingWindowForProject(proj.getProjectFilePath());
+					        DrawingWindow drawingWindow = new DrawingWindow(
+					            parentFrame,
+					            proj.getProjectName(),
+					            800, // Varsayılan genişlik - proje dosyasından yüklenecek
+					            600, // Varsayılan yükseklik - proje dosyasından yüklenecek
+					            languageManager
+					        );
+					        drawingWindow.setVisible(true);
+					        parentFrame.setVisible(false);
 					    }
 					});
 					projectPreviewsContainer.add(previewComp);
@@ -202,7 +212,7 @@ public final class MainMenuPanelsKit {
 			projectPreviewsContainer.repaint(); // Yeniden çiz
 		}
 
-		private List<ProjectInfo> loadProjects() {
+	private List<ProjectInfo> loadProjects() {
 			List<ProjectInfo> projectList = new ArrayList<>();
 			File projectsDir = new File(PROJECTS_DIRECTORY);
 
@@ -263,7 +273,7 @@ public final class MainMenuPanelsKit {
 		}
 	    */
 
-		public void updateTexts() {
+	public final void updateTexts() {
 		    if (languageManager == null) return;
 		    if (newImageButton != null) {
 		        newImageButton.setText(languageManager.getString(Languages.KEY_NEW_IMAGE_BUTTON));
@@ -284,16 +294,20 @@ public final class MainMenuPanelsKit {
 	// ProjectPreviewComponent Sınıfı
 	// =================================================================================
 	public static class ProjectPreviewComponent extends JPanel {
-		private ProjectInfo projectInfo;
-		private JLabel imageLabel;
-		private JLabel nameLabel;
+		private final ProjectInfo projectInfo;
+		private final JLabel imageLabel;
+		private final JLabel nameLabel;
+		private final MainMenuFrame parentFrame;
+		private final Languages languageManager;
 
 		private static final int THUMBNAIL_WIDTH = 160;
 		private static final int THUMBNAIL_HEIGHT = 120;
 		private static final Dimension COMPONENT_SIZE = new Dimension(THUMBNAIL_WIDTH + 10, THUMBNAIL_HEIGHT + 30);
 
-		public ProjectPreviewComponent(ProjectInfo projectInfo) {
+		public ProjectPreviewComponent(ProjectInfo projectInfo, MainMenuFrame parentFrame, Languages langManager) {
 			this.projectInfo = projectInfo;
+			this.parentFrame = parentFrame;
+			this.languageManager = langManager;
 			setLayout(new BorderLayout(5, 5)); // Resim ve isim arasında boşluk
 			setPreferredSize(COMPONENT_SIZE);
 			setMaximumSize(COMPONENT_SIZE); // GridLayout'ta boyutları korumak için
@@ -315,9 +329,64 @@ public final class MainMenuPanelsKit {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					System.out.println("Project clicked: " + projectInfo.getProjectName());
-					// TODO: Projeyi açma veya seçenekler menüsü gösterme mantığı buraya eklenecek
-					// Örneğin: parentFrame.openProject(projectInfo.getProjectFilePath());
-					// Veya: JPopupMenu optionsMenu = createOptionsMenu(); optionsMenu.show(e.getComponent(), e.getX(), e.getY());
+					if (e.getButton() == MouseEvent.BUTTON3) { // Sağ tıklama - kontextual menü
+						JPopupMenu optionsMenu = new JPopupMenu();
+						
+						JMenuItem openItem = new JMenuItem("Open");
+						openItem.addActionListener(ae -> {
+							// Projeyi aç
+							DrawingWindow drawingWindow = new DrawingWindow(
+								parentFrame,
+								projectInfo.getProjectName(),
+								800, // Varsayılan genişlik - proje dosyasından yüklenecek
+								600, // Varsayılan yükseklik - proje dosyasından yüklenecek
+								languageManager
+							);
+							drawingWindow.setVisible(true);
+							parentFrame.setVisible(false);
+						});
+						
+						JMenuItem renameItem = new JMenuItem("Rename");
+						renameItem.addActionListener(ae -> {
+							String newName = AppDialogs.showRenameDialog(
+								parentFrame,
+								projectInfo.getProjectName()
+							);
+							if (newName != null && !newName.trim().isEmpty()) {
+								// TODO: Implement project renaming
+								System.out.println("Project will be renamed to: " + newName);
+							}
+						});
+						
+						JMenuItem deleteItem = new JMenuItem("Delete");
+						deleteItem.addActionListener(ae -> {
+							boolean confirmed = AppDialogs.showDeleteConfirmDialog(
+								parentFrame,
+								projectInfo.getProjectName()
+							);
+							if (confirmed) {
+								// TODO: Implement project deletion
+								System.out.println("Project will be deleted: " + projectInfo.getProjectName());
+							}
+						});
+						
+						optionsMenu.add(openItem);
+						optionsMenu.add(renameItem);
+						optionsMenu.addSeparator();
+						optionsMenu.add(deleteItem);
+						
+						optionsMenu.show(e.getComponent(), e.getX(), e.getY());
+					} else { // Sol tıklama - direkt aç
+						DrawingWindow drawingWindow = new DrawingWindow(
+							parentFrame,
+							projectInfo.getProjectName(),
+							800, // Varsayılan genişlik - proje dosyasından yüklenecek
+							600, // Varsayılan yükseklik - proje dosyasından yüklenecek
+							languageManager
+						);
+						drawingWindow.setVisible(true);
+						parentFrame.setVisible(false);
+					}
 				}
 			});
 		}

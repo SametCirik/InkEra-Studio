@@ -1,6 +1,5 @@
 package inkera.ui.dialogs;
 
-import inkera.main.DrawingWindow;
 import inkera.main.MainMenuFrame;
 import inkera.ui.placeholders.PlaceholderText;
 import inkera.ui.titlebars.DialogTitleBar;
@@ -8,11 +7,26 @@ import inkera.languages.Languages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public final class AppDialogs {
 
     private AppDialogs() {}
+    
+    public static boolean showDeleteConfirmDialog(MainMenuFrame parent, String projectName) {
+        int result = JOptionPane.showConfirmDialog(parent,
+            "Are you sure you want to delete \"" + projectName + "\"?\nThis action cannot be undone.",
+            "Delete Project",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+        return result == JOptionPane.YES_OPTION;
+    }
+    
+    public static String showRenameDialog(MainMenuFrame parent, String currentName) {
+        return JOptionPane.showInputDialog(parent,
+            "Enter new name for \"" + currentName + "\":",
+            "Rename Project",
+            JOptionPane.QUESTION_MESSAGE);
+    }
 
     public static class NewImageDialog extends JDialog {
         private JTextField nameField; // DÜZELTME: PlaceholderText yerine standart JTextField
@@ -61,10 +75,8 @@ public final class AppDialogs {
             contentPanel.setLayout(null); // SignInDialog gibi null layout
             contentPanel.setBackground(Color.decode("#121212"));
             
-            Color labelColor = Color.decode("#B0B0B0");
             Color fieldBgColor = Color.decode("#424242");
             Color fieldFgColor = Color.decode("#FFFFFF");
-            Font labelFont = new Font("Segoe UI", Font.PLAIN, 13);
 
             nameField = new PlaceholderText("Image Name");
             nameField.setBounds(50, 50, 250, 30);

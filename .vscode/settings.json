@@ -1,0 +1,24 @@
+{
+    // Point the Java extension to your installed JDK(s). Update these paths if your JDKs are installed elsewhere.
+    // Primary java home used by VS Code Java features
+    "java.home": "D:\\Program Files\\Java\\jdk-17.0.14",
+    // Also set the JDT LS specific setting to be safe
+    "java.jdt.ls.java.home": "D:\\Program Files\\Java\\jdk-17.0.14",
+
+    // Provide multiple candidate runtimes (both C: and D: locations detected on your machine)
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "D:\\Program Files\\Java\\jdk-17.0.14",
+            "default": true
+        },
+        {
+            "name": "JavaSE-17",
+            "path": "C:\\Program Files\\Java\\jdk-17.0.14"
+        },
+        {
+            "name": "JavaSE-1.8",
+            "path": "C:\\Program Files\\Java\\jre-1.8"
+        }
+    ]
+}

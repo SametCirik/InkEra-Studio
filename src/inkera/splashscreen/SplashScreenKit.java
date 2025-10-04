@@ -41,9 +41,9 @@ public final class SplashScreenKit {
 		{
 			for (int i = 0; i <= 100; i++) 
 			{
-				Thread.sleep(5); // Biraz daha görünür olması için süreyi artırdım
+				Thread.sleep(50); // Simulate loading time
 				splash.updateProgress(i, 
-						"Loading component " + i + "..."); // Mesaj eklendi
+						"Loading component " + i + "%"); // Durum Mesajı
 			}
 			return null;
 		}
@@ -51,7 +51,8 @@ public final class SplashScreenKit {
 		@Override
 		protected void done() 
 		{
-			splash.close();
+			splash.close(); // Splash ekranını kapat
+			// Ana Pencereyi başlat
 			// MainMenuFrame'i EDT üzerinde oluşturup göstermek daha güvenli olabilir
 			// SwingWorker.done() zaten EDT'de çalışır.
 			JFrame mainFrame = new MainMenuFrame();
@@ -65,8 +66,8 @@ public final class SplashScreenKit {
 	public static class SplashScreenWithProgress 
 		extends JWindow 
 	{
-		private JProgressBar progressBar;
-		private JLabel statusLabel; // Kullanılacaksa initialize edilmeli
+		private final JProgressBar progressBar;
+		private final JLabel statusLabel; // Kullanılacaksa initialize edilmeli
 
 		public SplashScreenWithProgress() 
 		{
@@ -76,7 +77,7 @@ public final class SplashScreenKit {
 			content.setBackground(Color.BLACK);
 			
 			// Resim yükleme classpath üzerinden
-			URL imageUrl = getClass().getResource("/images/SplashScreen.png");
+			URL imageUrl = getClass().getResource("/images/SplashScreen_PreAlpha.png");
 			JLabel imageLabel;
 			if (imageUrl != null) 
 			{
