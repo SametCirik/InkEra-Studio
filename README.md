@@ -51,7 +51,6 @@ However, if you're interested in the future of **InkEra**, feel free to follow m
   <img width="503" height="350" alt="image" src="https://github.com/user-attachments/assets/13801aba-3965-4f58-ba6c-3e7bb107d898" />
   <img width="900" height="632" alt="image" src="https://github.com/user-attachments/assets/f2edbee8-0ebc-466e-b24c-f11fdf3fb8e4" />
   <img width="903" height="631" alt="image" src="https://github.com/user-attachments/assets/b83bf5a2-fdc1-42f6-8258-532e4a335612" />
-  <img width="1920" height="1037" alt="image" src="https://github.com/user-attachments/assets/e383a1db-0776-45fa-8066-41d92d7d3be2" />
   <img width="1920" height="1035" alt="image" src="https://github.com/user-attachments/assets/1ea1d8d4-8ae6-4275-9b66-9e1fcde7a62d" />
-
+  <img width="1920" height="1037" alt="image" src="https://github.com/user-attachments/assets/e383a1db-0776-45fa-8066-41d92d7d3be2" />
 </p>
