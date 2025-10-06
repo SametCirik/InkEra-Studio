@@ -52,5 +52,5 @@ However, if you're interested in the future of **InkEra**, feel free to follow m
   <img width="900" height="632" alt="image" src="https://github.com/user-attachments/assets/f2edbee8-0ebc-466e-b24c-f11fdf3fb8e4" />
   <img width="903" height="631" alt="image" src="https://github.com/user-attachments/assets/b83bf5a2-fdc1-42f6-8258-532e4a335612" />
   <img width="1920" height="1035" alt="image" src="https://github.com/user-attachments/assets/1ea1d8d4-8ae6-4275-9b66-9e1fcde7a62d" />
-  <img width="1920" height="1037" alt="image" src="https://github.com/user-attachments/assets/e383a1db-0776-45fa-8066-41d92d7d3be2" />
+  <img src="https://github.com/user-attachments/assets/f66ab0c5-08e3-4b8e-ad9a-89ac6f75ecdb" alt="2025-10-0612-42-00-ezgif com-video-to-gif-converter (1)" />
 </p>
