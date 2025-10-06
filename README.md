@@ -48,6 +48,7 @@ However, if you're interested in the future of **InkEra**, feel free to follow m
 <!-- *(Bu kısma, uygulamayı public yaptığında ekran görüntülerini ekleyebilirsin.)* -->
 
 <p align="center">
+  <img width="200" height="200" alt="AppLogo" src="https://github.com/user-attachments/assets/94b39d84-8b92-49a6-a869-9adf574a9e65" />
   <img width="503" height="350" alt="image" src="https://github.com/user-attachments/assets/13801aba-3965-4f58-ba6c-3e7bb107d898" />
   <img width="900" height="632" alt="image" src="https://github.com/user-attachments/assets/f2edbee8-0ebc-466e-b24c-f11fdf3fb8e4" />
   <img width="903" height="631" alt="image" src="https://github.com/user-attachments/assets/b83bf5a2-fdc1-42f6-8258-532e4a335612" />
