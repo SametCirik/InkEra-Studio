@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="0" style="-fx-background-color: #252526;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.inkera.ui.controllers.MangaDetailController">
+
+    <HBox spacing="10" style="-fx-padding: 10 20; -fx-background-color: #1e1e1e; -fx-border-color: #333; -fx-border-width: 0 0 1 0;" alignment="CENTER_LEFT">
+        <Button text="%mangadetail.back" styleClass="back-button" onAction="#backToMangaGallery"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="%mangadetail.summary" onAction="#showFullSummary" style="-fx-background-color: #333; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;"/>
+        <Button text="%mangadetail.settings" style="-fx-background-color: #333; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4;"/>
+    </HBox>
+
+    <HBox VBox.vgrow="ALWAYS">
+        <VBox spacing="20" alignment="TOP_CENTER" prefWidth="350" minWidth="350" maxWidth="350" style="-fx-padding: 30; -fx-background-color: #2b2b2b; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 5, 0);">
+
+            <StackPane alignment="CENTER" maxWidth="200" maxHeight="280" styleClass="detail-cover" onMouseClicked="#handleChangeCover">
+                <Label text="Kapak Ekle / Değiştir" style="-fx-text-fill: #555; -fx-font-weight: bold;"/>
+                <ImageView fx:id="coverImageView" fitWidth="200" fitHeight="280" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0);"/>
+            </StackPane>
+
+            <VBox spacing="5" alignment="CENTER">
+                <Label fx:id="titleLabel" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label fx:id="authorLabel" style="-fx-text-fill: #4caf50; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <FlowPane fx:id="tagsFlowPane" hgap="10" vgap="10" alignment="CENTER" onMouseClicked="#handleEditTags" style="-fx-cursor: hand; -fx-padding: 10; min-height: 40px;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox spacing="0" HBox.hgrow="ALWAYS" style="-fx-padding: 0;">
+            <HBox alignment="CENTER_LEFT" style="-fx-padding: 30 40 20 40;">
+                <VBox spacing="2">
+                    <Label text="%mangadetail.chapters" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                    <Label fx:id="totalChaptersLabel" style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="%mangadetail.addChapter" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+            </HBox>
+
+            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+                <content>
+                    <VBox fx:id="chaptersVBox" spacing="10" style="-fx-padding: 0 40 40 40; -fx-background-color: transparent;"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </HBox>
+</VBox>

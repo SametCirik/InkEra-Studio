@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox fx:id="titleBar" alignment="CENTER_LEFT" prefHeight="32.0" spacing="12.0"  
+      style="-fx-background-color: #1E1E1E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"  
+      fx:controller="com.inkera.ui.controllers.TitleBarController"
+      onMousePressed="#handleMousePressed" onMouseDragged="#handleMouseDragged" onMouseClicked="#handleMouseClicked">
+
+    <padding>
+        <Insets left="14.0" right="0.0" />
+    </padding>
+
+    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../assets/AppLogo_.png" />
+        </image>
+    </ImageView>
+
+    <Label fx:id="titleLabel" text="InkEra Studio" textFill="#cccccc" mouseTransparent="true"
+           style="-fx-font-weight: normal; -fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+     
+    <Region HBox.hgrow="ALWAYS" />  
+     
+    <HBox alignment="CENTER_RIGHT">
+        <Button fx:id="minimizeBtn" text="−" onAction="#minimize" prefWidth="46.0" prefHeight="32.0"  
+                styleClass="title-button" />
+         
+        <Button fx:id="maximizeBtn" text="□" onAction="#maximize" prefWidth="46.0" prefHeight="32.0"  
+                styleClass="title-button" />
+         
+        <Button fx:id="closeBtn" text="✕" onAction="#close" prefWidth="46.0" prefHeight="32.0"  
+                styleClass="title-button, title-button-close" />
+    </HBox>
+
+</HBox>

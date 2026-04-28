@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="0" xmlns="http://javafx.com/javafx/21" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.inkera.ui.controllers.NewProjectController"
+      stylesheets="@../styles/style.css"
+      style="-fx-background-color: #2b2b2b; -fx-border-color: #4caf50; -fx-border-width: 1;">
+
+    <VBox spacing="15" prefWidth="300" style="-fx-padding: 25;">
+        <Label text="%newproject.title" style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        
+        <VBox spacing="5">
+            <Label text="%newproject.nameLabel" style="-fx-text-fill: #aaaaaa;"/>
+            <TextField fx:id="nameField" text="%newproject.defaultName" style="-fx-background-color: #3c3f41; -fx-text-fill: white;"/>
+        </VBox>
+
+        <HBox spacing="10">
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="%newproject.widthLabel" style="-fx-text-fill: #aaaaaa;"/>
+                <TextField fx:id="widthField" text="1920" style="-fx-background-color: #3c3f41; -fx-text-fill: white;"/>
+            </VBox>
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="%newproject.heightLabel" style="-fx-text-fill: #aaaaaa;"/>
+                <TextField fx:id="heightField" text="1080" style="-fx-background-color: #3c3f41; -fx-text-fill: white;"/>
+            </VBox>
+        </HBox>
+
+        <VBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS" spacing="10">
+             <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="%newproject.cancelButton" onAction="#handleCancel" 
+                        style="-fx-background-color: transparent; -fx-text-fill: #aaaaaa; -fx-border-color: #555; -fx-border-radius: 3; -fx-cursor: hand;"/>
+                <Button text="%newproject.createButton" onAction="#handleCreate" defaultButton="true"
+                        style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <Separator orientation="VERTICAL" />
+
+    <VBox spacing="15" prefWidth="250" style="-fx-background-color: #252526; -fx-padding: 25;">
+        <Label text="%newproject.templatesTitle" style="-fx-font-size: 14px; -fx-text-fill: #aaaaaa;"/>
+        
+        <GridPane hgap="10" vgap="10">
+            <Button text="%newproject.templateFHD" onAction="#presetFHD"
+                    prefWidth="100" prefHeight="60" textAlignment="CENTER"
+                    style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;"
+                    GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            
+            <Button text="%newproject.templateSquare" onAction="#presetSquare"
+                    prefWidth="100" prefHeight="60" textAlignment="CENTER"
+                    style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;"
+                    GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Button text="%newproject.template4K" onAction="#preset4K"
+                    prefWidth="100" prefHeight="60" textAlignment="CENTER"
+                    style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+            <Button text="%newproject.templateA4" onAction="#presetA4"
+                    prefWidth="100" prefHeight="60" textAlignment="CENTER"
+                    style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;"
+                    GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+        
+        <Label text="%newproject.templateInfo" wrapText="true" style="-fx-text-fill: #666; -fx-font-size: 10px;"/>
+    </VBox>
+
+</HBox>

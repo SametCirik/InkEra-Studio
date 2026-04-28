@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inkera.ui.controllers.WorkspaceController">
+
+    <top>
+        <VBox spacing="0">
+            <fx:include source="TitleBar.fxml" />
+
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="workspace-topbar">
+                <Button onAction="#toggleLeftSidebar" styleClass="icon-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20" opacity="0.8" preserveRatio="true">
+                            <image><Image url="@../assets/icons/tools/Icon_TogglePanel.png" /></image>
+                        </ImageView>
+                    </graphic>
+                    <tooltip><Tooltip text="Araç Panelini Aç/Kapat" /></tooltip>
+                </Button>
+
+                <Separator orientation="VERTICAL" />
+                <Button text="Dosya" styleClass="text-button"/>
+                <Button text="Düzenle" styleClass="text-button"/>
+                <Button text="Görünüm" styleClass="text-button"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="projectTitleLabel" text="Untitled - InkEra" style="-fx-text-fill: #888; -fx-font-size: 12px;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="Dışa Aktar" styleClass="accent-button-small"/>
+                <Separator orientation="VERTICAL" />
+
+                <Button onAction="#toggleRightSidebar" styleClass="icon-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20" opacity="0.8" preserveRatio="true">
+                            <image><Image url="@../assets/icons/tools/Icon_TogglePanel.png" /></image>
+                        </ImageView>
+                    </graphic>
+                    <tooltip><Tooltip text="Katman Panelini Aç/Kapat" /></tooltip>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox fx:id="leftSidebar" spacing="5" styleClass="workspace-sidebar" prefWidth="50" alignment="TOP_CENTER">
+            <padding><Insets top="10" bottom="10" left="2" right="2"/></padding>
+            
+            <Button styleClass="tool-button" onAction="#selectPen" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_Pen.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Fırça (P)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" onAction="#selectEraser" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_Eraser.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Silgi (E)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_PaintBucket.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Boya Kovası (G)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_Move.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Taşıma (M)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_CursorChooser.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Damlalık (I)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_Text.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Metin (T)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_Lasso.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Kement Seçimi (L)"/></tooltip>
+            </Button>
+
+            <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_MagicWand.png"/></ImageView></graphic>
+                <tooltip><Tooltip text="Sihirli Değnek (W)"/></tooltip>
+            </Button>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <VBox alignment="CENTER" spacing="2" style="-fx-padding: 0 0 10 0;">
+                <Pane prefWidth="25" prefHeight="25" style="-fx-background-color: black; -fx-border-color: #555; -fx-border-radius: 3; -fx-background-radius: 3;"/>
+                <Label text="Renk" style="-fx-text-fill: #888; -fx-font-size: 9px;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fx:id="canvasScrollPane" style="-fx-background: #252526; -fx-border-color: transparent;" fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+            <content>
+                <StackPane style="-fx-background-color: #252526; -fx-padding: 50;">
+                    <Pane fx:id="canvasContainer" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+                        <Canvas fx:id="mainCanvas" width="1920" height="1080" />
+                    </Pane>
+                </StackPane>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <right>
+        <HBox fx:id="rightSidebar" spacing="0">
+            <VBox prefWidth="210" style="-fx-background-color: #252526;">
+                <HBox alignment="CENTER_LEFT" style="-fx-background-color: #2d2d2d; -fx-padding: 8;">
+                    <Label text="Katmanlar" style="-fx-text-fill: #ddd; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="+" style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-font-weight: bold;"/>
+                </HBox>
+                
+                <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                    <VBox spacing="2" style="-fx-padding: 5;">
+                        <HBox styleClass="layer-item-active" spacing="8" alignment="CENTER_LEFT">
+                            <Label text="Katman 1" style="-fx-text-fill: white;"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+
+                <Separator opacity="0.1"/>
+
+                <VBox spacing="10" style="-fx-padding: 12;">
+                    <VBox spacing="5">
+                        <Label text="Boyut" style="-fx-text-fill: #aaa; -fx-font-size: 11px;"/>
+                        <Slider fx:id="sizeSlider" min="1" max="100" value="5"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Opaklık" style="-fx-text-fill: #aaa; -fx-font-size: 11px;"/>
+                        <Slider min="0" max="100" value="100"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <VBox spacing="5" styleClass="workspace-sidebar" prefWidth="45" alignment="TOP_CENTER" style="-fx-border-width: 0 0 0 1;">
+                <padding><Insets top="10" left="2" right="2"/></padding>
+                
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_C.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Katmanı Temizle"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_V.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Dikey Simetri"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_H.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Yatay Simetri"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_M.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Aşağıdaki Katmanla Birleştir"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_Cam.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Referans Görünümü"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_D.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Katmanı Sil"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_E.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="Efektler (FX)"/></tooltip>
+                </Button>
+
+                <Button styleClass="tool-button" prefWidth="40" prefHeight="40">
+                    <graphic><ImageView fitHeight="24" fitWidth="24" preserveRatio="true"><Image url="@../assets/icons/tools/Icon_AI.png"/></ImageView></graphic>
+                    <tooltip><Tooltip text="InkEra AI Asistanı"/></tooltip>
+                </Button>
+            </VBox>
+        </HBox>
+    </right>
+
+</BorderPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="settingsPane" spacing="20" style="-fx-padding: 40; -fx-background-color: #252526;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.inkera.ui.controllers.SettingsController">
+
+    <Label text="%settings.title" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+
+    <TabPane tabClosingPolicy="UNAVAILABLE" styleClass="settings-tabs">
+        <tabs>
+            <Tab text="%settings.language">
+                <content>
+                    <VBox spacing="10" style="-fx-padding: 20;">
+                        <Label text="%settings.language.label" style="-fx-text-fill: #ccc;"/>
+                        <ComboBox fx:id="languageComboBox" />
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="%settings.tab.interface">
+                <content>
+                    <VBox spacing="10" style="-fx-padding: 20;">
+                        <Label text="%settings.comingsoon" style="-fx-text-fill: #ccc;"/>
+                    </VBox>
+                </content>
+            </Tab>
+             <Tab text="%settings.tab.account">
+                <content>
+                    <VBox spacing="10" style="-fx-padding: 20;">
+                        <Label text="%settings.comingsoon" style="-fx-text-fill: #ccc;"/>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+
+</VBox>

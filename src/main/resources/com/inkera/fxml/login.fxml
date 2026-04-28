@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="CENTER" spacing="20" 
+      xmlns="http://javafx.com/javafx/21" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.inkera.ui.controllers.LoginController"
+      style="-fx-background-color: #2b2b2b; -fx-border-color: #4caf50; -fx-border-width: 1; -fx-padding: 30;">
+
+    <Label text="%login.title" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+    
+    <VBox spacing="5" prefWidth="300">
+        <Label text="%login.emailLabel" style="-fx-text-fill: #aaaaaa;"/>
+        <TextField fx:id="emailField" promptText="%login.emailPrompt" 
+                   style="-fx-background-color: #3c3f41; -fx-text-fill: white;"/>
+    </VBox>
+
+    <VBox spacing="5" prefWidth="300">
+        <Label text="%login.passwordLabel" style="-fx-text-fill: #aaaaaa;"/>
+        <PasswordField fx:id="passwordField" promptText="%login.passwordPrompt" 
+                       style="-fx-background-color: #3c3f41; -fx-text-fill: white;"/>
+    </VBox>
+
+    <Label fx:id="statusLabel" text="" style="-fx-text-fill: #e57373;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="%login.loginButton" onAction="#handleLogin" defaultButton="true"
+                style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-pref-width: 100;"/>
+        
+        <Button text="%login.registerButton" onAction="#handleRegister"
+                style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand; -fx-pref-width: 100;"/>
+    </HBox>
+    
+    <Button text="%login.cancelButton" onAction="#handleCancel" 
+            style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-cursor: hand; -fx-underline: true;"/>
+
+</VBox>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" style="-fx-padding: 40; -fx-background-color: #252526;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.inkera.ui.controllers.MangaGalleryController"> 
+      
+    <HBox alignment="CENTER_LEFT">
+        <Label text="%manga.title" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+        <content>
+            <FlowPane fx:id="projectsFlowPane" hgap="30" vgap="30" style="-fx-background-color: transparent;">
+                
+                <VBox fx:id="newProjectCard" styleClass="manga-card" spacing="12">
+                    <StackPane prefWidth="160" prefHeight="240" styleClass="manga-card-cover, new-project-cover">
+                        <Label text="+" style="-fx-text-fill: #555; -fx-font-size: 48px; -fx-font-weight: bold;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label text="%manga.newSeries" styleClass="manga-title"/>
+                    </VBox>
+                </VBox>
+
+            </FlowPane>
+        </content>
+    </ScrollPane>
+</VBox>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainPane"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.inkera.ui.controllers.HomeController"
+            stylesheets="@../styles/style.css"
+            prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: #252526;">
+
+    <top>
+         <fx:include source="TitleBar.fxml" />
+    </top>
+
+    <left>
+        <VBox prefWidth="250" styleClass="sidebar">
+            <VBox alignment="CENTER" prefHeight="150" spacing="5">
+                <Label text="InkEra" styleClass="brand-label"/>
+                <Label text="Studio" style="-fx-text-fill: #888; -fx-font-size: 12px;"/>
+            </VBox>
+            
+            <Separator style="-fx-opacity: 0.1;"/>
+
+            <VBox fx:id="menuButtons" spacing="5" style="-fx-padding: 20 0;">
+                <Button fx:id="homeButton" text="%menu.home" maxWidth="Infinity" styleClass="menu-button" onAction="#showDashboard"/>
+                <Button fx:id="galleryButton" text="%menu.gallery" maxWidth="Infinity" styleClass="menu-button" onAction="#showGallery"/>
+                <Button fx:id="mangaButton" text="%menu.manga" maxWidth="Infinity" styleClass="menu-button" onAction="#showMangaGallery"/>
+                <Button fx:id="marketButton" text="%menu.market" maxWidth="Infinity" styleClass="menu-button"/>
+                <Button fx:id="settingsButton" text="%menu.settings" maxWidth="Infinity" styleClass="menu-button" onAction="#showSettings"/>
+                <Button fx:id="aboutButton" text="%menu.about" maxWidth="Infinity" styleClass="menu-button"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <VBox spacing="10" style="-fx-padding: 20;">
+                <Label text="%login.ask" style="-fx-text-fill: #666; -fx-font-size: 11px;"/>
+                <Button text="%login.button" 
+                        onAction="#showLoginDialog"
+                        style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-border-color: #4caf50; -fx-border-radius: 3; -fx-cursor: hand;" 
+                        maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+</BorderPane>

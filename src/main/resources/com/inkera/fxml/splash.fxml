@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.inkera.ui.controllers.SplashController"
+            style="-fx-background-color: black; -fx-border-color: #444; -fx-border-width: 2;">
+
+    <center>
+        <ImageView fitHeight="300.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@SplashScreen_PreAlpha.png" />
+            </image>
+        </ImageView>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <ProgressBar fx:id="progressBar" prefWidth="500.0" progress="0.0" 
+                         style="-fx-accent: #388E3C; -fx-control-inner-background: black; -fx-text-box-border: black;" />
+            <Label fx:id="statusLabel" text="Loading..." textFill="LIGHTGRAY" />
+        </VBox>
+    </bottom>
+</BorderPane>

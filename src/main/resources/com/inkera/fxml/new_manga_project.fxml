@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" prefWidth="500" style="-fx-background-color: #2b2b2b;" 
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.inkera.ui.controllers.NewMangaProjectController">
+    
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Yeni Manga Projesi Başlat" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <VBox spacing="15">
+        <VBox spacing="5">
+            <Label text="Proje İsmi:" style="-fx-text-fill: #888;"/>
+            <TextField fx:id="projectNameField" promptText="Örn: Kafir'in Zinciri" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Yazar / Çizer:" style="-fx-text-fill: #888;"/>
+            <TextField fx:id="authorField" promptText="Adınız" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Proje Konumu:" style="-fx-text-fill: #888;"/>
+            <HBox spacing="10">
+                <TextField fx:id="pathField" editable="false" HBox.hgrow="ALWAYS" promptText="Klasör Seçin..." styleClass="text-field"/>
+                <Button text="Gözat" onAction="#handleBrowse" style="-fx-background-color: #333; -fx-text-fill: white; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+        <Button text="İptal" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-cursor: hand;"/>
+        <Button text="Projeyi Oluştur" onAction="#handleCreate" styleClass="hero-button" prefWidth="150" prefHeight="40"/>
+    </HBox>
+</VBox>

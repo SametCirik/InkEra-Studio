@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" prefWidth="600" prefHeight="450" style="-fx-background-color: #2b2b2b;" 
+      stylesheets="@../styles/style.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.inkera.ui.controllers.SummaryDialogController">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Hikaye Özeti (Sinopsis)" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="editButton" text="Düzenle" onAction="#toggleEdit" style="-fx-background-color: #333; -fx-text-fill: white; -fx-cursor: hand;"/>
+    </HBox>
+
+    <TextArea fx:id="summaryArea" VBox.vgrow="ALWAYS" wrapText="true" editable="false" 
+              promptText="Bu proje için henüz bir hikaye özeti yazılmamış..." 
+              style="-fx-control-inner-background: #1e1e1e; -fx-text-fill: white; -fx-font-size: 15px; -fx-background-color: transparent; -fx-border-color: #333; -fx-border-radius: 5;"/>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button text="Kapat" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-cursor: hand;"/>
+        <Button fx:id="saveButton" text="Değişiklikleri Kaydet" onAction="#handleSave" visible="false" managed="false" styleClass="hero-button"/>
+    </HBox>
+</VBox>

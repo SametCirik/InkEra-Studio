@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" style="-fx-padding: 40; -fx-background-color: #252526;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+    <Label text="%gallery.title" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+
+    <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+        <content>
+            <FlowPane hgap="30" vgap="30" style="-fx-background-color: transparent;">
+                
+                <VBox styleClass="gallery-item" spacing="10">
+                    <ImageView fitWidth="180" fitHeight="120" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+                        <image><Image url="@SplashScreen_PreAlpha.png"/></image>
+                    </ImageView>
+                    <Label text="Konsept Tasarım 1" style="-fx-text-fill: #ccc; -fx-alignment: CENTER;"/>
+                </VBox>
+
+                <VBox styleClass="gallery-item" spacing="10">
+                    <VBox prefWidth="180" prefHeight="120" style="-fx-background-color: #333; -fx-alignment: CENTER;">
+                        <Label text="%gallery.noImage" textFill="#555"/>
+                    </VBox>
+                    <Label text="Eski Taslak" style="-fx-text-fill: #ccc; -fx-alignment: CENTER;"/>
+                </VBox>
+
+                 </FlowPane>
+        </content>
+    </ScrollPane>
+</VBox>

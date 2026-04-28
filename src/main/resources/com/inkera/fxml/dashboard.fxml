@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="30" style="-fx-padding: 50; -fx-background-color: #252526;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.inkera.ui.controllers.HomeController">
+    
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <VBox spacing="5">
+            <Label text="%dashboard.welcome" style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+            <Label text="%dashboard.subtitle" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="%dashboard.newProject" onAction="#handleNewProject"
+                prefWidth="160" prefHeight="50" 
+                styleClass="hero-button"/>
+    </HBox>
+
+    <Separator style="-fx-opacity: 0.1;" />
+
+    <VBox spacing="10">
+        <Label text="%dashboard.lastEditedTitle" style="-fx-text-fill: #aaaaaa; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+        
+        <HBox styleClass="last-project-banner" spacing="20" alignment="CENTER_LEFT" onMouseClicked="#openLastProject">
+            <ImageView fitHeight="120" fitWidth="200" preserveRatio="true">
+                <image>
+                    <Image url="@SplashScreen_PreAlpha.png" /> 
+                </image>
+            </ImageView>
+            
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Cyberpunk_City_Concept_v4" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label text="%dashboard.editedTime" style="-fx-text-fill: #888;"/>
+                <Label text="%dashboard.continue" style="-fx-text-fill: #4caf50; -fx-padding: 10 0 0 0; -fx-cursor: hand;"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+</VBox>
