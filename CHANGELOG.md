@@ -8,29 +8,46 @@
 
 ---
 
+## 2026-04-29
+
+- **Bölüm & Sayfa Motoru (Print Simulation):**
+    - **Matbaa/Forma Mantığı:** Bölümlerin basit bir liste yerine, basılı materyal (çift sayfa/spread) mantığıyla dizilmesini sağlayan dinamik sayfa motoru kodlandı.
+    - **Okuma Yönü & Offset:** Yeni bölüm oluşturulurken Manga (Sağdan Sola) veya Çizgi Roman (Soldan Sağa) düzeni seçme özelliği eklendi. İlk sayfanın sağda veya solda başlama durumuna (offset) göre tüm sayfaların dizilimini hesaplayan algoritma kuruldu.
+    - **Bölüm İçi Veri Yönetimi:** Bölüme ait okuma yönü ve sayfa sıralaması gibi verilerin, ana JSON'u şişirmemesi için proje içindeki `Episodes/BolumAdi/.inkepisode/meta.json` dosyasına yazılması (Payload/Registry ayrımı) sağlandı.
+    - **Recursive Deletion:** Manga detay ekranındaki bölüm kartlarına sağ tık (Context Menu) menüsü eklendi. Özel uyarı penceresiyle birlikte içi dolu bölüm klasörlerini ve JSON kayıtlarını eş zamanlı silen motor yazıldı.
+
+- **UI/UX & Pencere Yönetimi:**
+    - **Studio Stabilization:** Uygulama penceresinin yeniden boyutlandırılması (resize/fullscreen) kapatılarak, arayüzün her ekranda stabil kalmasını sağlayan sabit "Premium Studio" (1150x800) çözünürlüğüne geçildi.
+    - **Karanlık Tema İyileştirmeleri:** Açılır menüler (ComboBox) ve sağ tık (Context Menu) baloncuları Windows/Linux varsayılan görünümünden çıkartılarak stüdyo karanlık temasına entegre edildi.
+    - **Bölüm Detay Görünümü:** Manga okuma yönüne göre şekillenen, bölüm kapağını doğru oranda (1:1.41) gölge efektiyle (drop shadow) sabitleyen yeni bir sayfa yönetim arayüzü tasarlandı.
+
+---
+
 ## 2026-04-28 
 
 - **Manga Detay Paneli & Dinamik Veri Yönetimi:**
-	- **Gelişmiş Etiket Sistemi (Token Input):** Tıklanabilir, boşluk (Space) tuşuyla yeni kutucuk açan, Enter ile kaydedilen ve odak kaybında otomatik senkronizasyon sağlayan modern etiket düzenleyici implemente edildi. 
-	- **Görsel Stil Güncellemesi:** Etiket metinleri ve vurgular için stüdyo temasına uygun yeşil (#4caf50) renk şemasına geçildi. 
-	- **Kapak Resmi Motoru:** `.inkera/poster.png` üzerinden kapak yükleme, değiştirme ve JavaFX image cache sorunlarını aşan (timestamping) dinamik önizleme sistemi kuruldu. 
-	- **Native Pencere Mimarisi:** Diyalog pencereleri (Yeni Proje, Sinopsis) işletim sistemi (KDE/KWin) pencere yöneticisine devredilerek görsel artefaktlar ve beyaz köşe hataları (glitch) giderildi. 
-	- **Custom Scrollbar:** Sinopsis alanı için stüdyo karanlık temasıyla uyumlu, hover efektli yeşil kaydırma çubukları tasarlandı. 
+    - **Gelişmiş Etiket Sistemi (Token Input):** Tıklanabilir, boşluk (Space) tuşuyla yeni kutucuk açan, Enter ile kaydedilen ve odak kaybında otomatik senkronizasyon sağlayan modern etiket düzenleyici implemente edildi. 
+    - **Görsel Stil Güncellemesi:** Etiket metinleri ve vurgular için stüdyo temasına uygun yeşil (#4caf50) renk şemasına geçildi. 
+    - **Kapak Resmi Motoru:** `.inkera/poster.png` üzerinden kapak yükleme, değiştirme ve JavaFX image cache sorunlarını aşan (timestamping) dinamik önizleme sistemi kuruldu. 
+    - **Native Pencere Mimarisi:** Diyalog pencereleri (Yeni Proje, Sinopsis) işletim sistemi (KDE/KWin) pencere yöneticisine devredilerek görsel artefaktlar ve beyaz köşe hataları (glitch) giderildi. 
+    - **Custom Scrollbar:** Sinopsis alanı için stüdyo karanlık temasıyla uyumlu, hover efektli yeşil kaydırma çubukları tasarlandı. 
 
 - **Bug Fixes & Refactoring:**
-	- **Persistence Layer:** Verilerin hem merkezi `user-data` registry klasörüne hem de yerel proje dizinindeki `.inkera/meta.json` dosyasına yazılmasını sağlayan çift yönlü kayıt mekanizması kuruldu. 
-	- **Layout Stabilization:** Manga galerisinde uzun proje isimlerinin grid yapısını bozması, metin sınırlama (ellipsis) ve hizalama güncellemeleriyle çözüldü. 
+    - **Persistence Layer:** Verilerin hem merkezi `user-data` registry klasörüne hem de yerel proje dizinindeki `.inkera/meta.json` dosyasına yazılmasını sağlayan çift yönlü kayıt mekanizması kuruldu. 
+    - **Layout Stabilization:** Manga galerisinde uzun proje isimlerinin grid yapısını bozması, metin sınırlama (ellipsis) ve hizalama güncellemeleriyle çözüldü. 
 
 --- 
 ## 2026-04-27 
 
 - **Mimari Devrim & Proje Yapılandırması:** 
-	- **Modern Studio Architecture:** Proje tamamen modüler JavaFX 21 yapısına taşındı. - **Proje İnşası (Scaffolding):** Yeni seri başlatıldığında kullanıcının seçtiği dizinde otomatik olarak `.inkera/` (gizli meta) ve `Episodes/` klasör hiyerarşisinin kurulması sağlandı. 
-	- **Dinamik Galeri:** JSON dosyalarını tarayarak otomatik kart üreten ve detay ekranına veri paslayan galeri motoru geliştirildi. 
+    - **Modern Studio Architecture:** Proje tamamen modüler JavaFX 21 yapısına taşındı. 
+    - **Proje İnşası (Scaffolding):** Yeni seri başlatıldığında kullanıcının seçtiği dizinde otomatik olarak `.inkera/` (gizli meta) ve `Episodes/` klasör hiyerarşisinin kurulması sağlandı. 
+    - **Dinamik Galeri:** JSON dosyalarını tarayarak otomatik kart üreten ve detay ekranına veri paslayan galeri motoru geliştirildi. 
 
 - **GitHub & Versiyon Kontrolü:** 
-	- **Repository Migration:** Proje GitHub'a (`master` branch) taşındı. - **Lisanslama:** Projenin tüm haklarını koruyan ancak kodun incelenmesine izin veren GPLv3 lisans yapısı kuruldu. 
-	- **Obsidian Entegrasyonu:** Proje kök dizini Obsidian Vault olarak yapılandırıldı; `.obsidian` klasörü `.gitignore` kapsamına alındı. 
+    - **Repository Migration:** Proje GitHub'a (`master` branch) taşındı. 
+    - **Lisanslama:** Projenin tüm haklarını koruyan ancak kodun incelenmesine izin veren GPLv3 lisans yapısı kuruldu. 
+    - **Obsidian Entegrasyonu:** Proje kök dizini Obsidian Vault olarak yapılandırıldı; `.obsidian` klasörü `.gitignore` kapsamına alındı. 
 
 ---
 
@@ -75,7 +92,5 @@
     * Uygulama genelinde **Modern Dark Theme** (Koyu Tema) yapısına geçildi.
     * **Layout Stabilization:** Menü butonlarındaki hover efekti kaynaklı titreme (layout shift) sorunu giderildi.
     * Standart pencere kenarlıkları kaldırılarak (`StageStyle.UNDECORATED`), özel tasarım bir **TitleBar** entegre edildi.
-
-* **Dashboard & Navigasyon:**
     * **Frame/Content Mimarisi:** Ana pencere sabit bir çerçeveye dönüştürülerek sayfa geçişleri optimize edildi.
     * **Manga Yönetim Modülü:** Galeri görünümü, detay ekranı (Split-View) ve bağımsız özet penceresi geliştirildi.

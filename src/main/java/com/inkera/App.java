@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.inkera.core.config.ConfigService;
 import com.inkera.services.LocaleManager;
 import com.inkera.ui.controllers.WorkspaceController;
-import com.inkera.util.ResizeHelper;
+// ResizeHelper importunu kaldırdık çünkü artık boyutlandırmayı kapatıyoruz
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -56,15 +56,15 @@ public class App extends Application {
                     homeStage.initStyle(StageStyle.DECORATED);
                 }
 
-                // 2. Scene'i oluştur ve Stage'e bağla (Kritik Adım)
-                Scene scene = new Scene(root);
+                // 2. Scene'i oluştur ve Stage'e bağla (YENİ: Boyutlar 1150x800 olarak sabitlendi)
+                Scene scene = new Scene(root, 1150, 800);
                 homeStage.setTitle("InkEra Studio - Home");
                 homeStage.setScene(scene);
 
-                // 3. Resize Listener'ı EKLE (Scene bağlandıktan SONRA çağrılmalı!)
-                if (useCustomTitleBar) {
-                    ResizeHelper.addResizeListener(homeStage);
-                }
+                // YENİ: Pencerenin yeniden boyutlandırılmasını (ve maximize edilmesini) engelle
+                homeStage.setResizable(false);
+
+                // ResizeHelper çağrısını KALDIRDIK çünkü pencerenin boyutlandırılmasını istemiyoruz
 
                 homeStage.centerOnScreen();
                 homeStage.show();
@@ -102,15 +102,11 @@ public class App extends Application {
                     workspaceStage.initStyle(StageStyle.DECORATED);
                 }
                 
-                // 2. Scene'i oluştur ve Stage'e bağla (Kritik Adım)
-                Scene scene = new Scene(root);
+                // Şimdilik Workspace ekranını da sabitliyoruz (İleride değiştirilebilir)
+                Scene scene = new Scene(root, 1150, 800);
                 workspaceStage.setTitle("InkEra Studio - " + name);  
                 workspaceStage.setScene(scene);
-
-                // 3. Resize Listener'ı EKLE (Scene bağlandıktan SONRA çağrılmalı!)
-                if (useCustomTitleBar) {
-                    ResizeHelper.addResizeListener(workspaceStage);  
-                }
+                workspaceStage.setResizable(false);
 
                 workspaceStage.centerOnScreen();
                 workspaceStage.show();

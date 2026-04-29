@@ -5,18 +5,19 @@ import com.inkera.services.ProjectService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MangaDetailController {
 
@@ -42,7 +44,6 @@ public class MangaDetailController {
 
     @FXML
     public void initialize() {
-        // Artık dinleyiciye (listener) ihtiyacımız yok, her şeyi Enter tuşu ile çözeceğiz.
     }
 
     public void setProject(ProjectModel project) {
@@ -69,7 +70,6 @@ public class MangaDetailController {
         }
     }
 
-    // Etiketleri normal görünümde (Label olarak) çizer
     private void refreshTagsUI() {
         tagsFlowPane.getChildren().clear();
         if (currentProject.getTags() != null && !currentProject.getTags().isEmpty()) {
@@ -86,37 +86,31 @@ public class MangaDetailController {
         }
     }
 
-    // Düzenleme moduna geçiş (Kutucukları oluşturur)
     @FXML
     private void handleEditTags(MouseEvent event) {
-        // Eğer zaten TextField (Edit modu) açıksa sıfırlamayı engelle
         if (!tagsFlowPane.getChildren().isEmpty() && tagsFlowPane.getChildren().get(0) instanceof TextField) {
             return; 
         }
 
         tagsFlowPane.getChildren().clear();
         
-        // Mevcut etiketleri TextField'a dönüştür
         if (currentProject.getTags() != null) {
             for (String tag : currentProject.getTags()) {
                 tagsFlowPane.getChildren().add(createMiniTagInput(tag));
             }
         }
         
-        // Sona her zaman boş bir kutu ekle
         TextField emptyInput = createMiniTagInput("");
         tagsFlowPane.getChildren().add(emptyInput);
         emptyInput.requestFocus();
     }
 
-    // Mini TextField üreten özel metodumuz
     private TextField createMiniTagInput(String text) {
         TextField field = new TextField(text);
         field.getStyleClass().add("mini-tag-input");
         
         field.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-                // Boşluğa basılınca o kutuyu onaylar, yanına yeni bir boş kutu açar
                 e.consume(); 
                 if (!field.getText().trim().isEmpty()) {
                     TextField newInput = createMiniTagInput("");
@@ -125,10 +119,8 @@ public class MangaDetailController {
                     newInput.requestFocus();
                 }
             } else if (e.getCode() == KeyCode.ENTER) {
-                // Enter'a basınca her şeyi kaydet ve normal görünüme dön
                 handleSaveTags();
             } else if (e.getCode() == KeyCode.BACK_SPACE) {
-                // Kutunun içi boşken silme tuşuna basılırsa kutuyu sil ve bir öncekine odaklan
                 if (field.getText().isEmpty() && tagsFlowPane.getChildren().size() > 1) {
                     e.consume();
                     int currentIndex = tagsFlowPane.getChildren().indexOf(field);
@@ -144,13 +136,11 @@ public class MangaDetailController {
         return field;
     }
 
-    // Tüm kutulardaki yazıları toplayıp projeyi kaydeder
     private void handleSaveTags() {
         List<String> newTags = new ArrayList<>();
         for (javafx.scene.Node node : tagsFlowPane.getChildren()) {
             if (node instanceof TextField) {
                 String val = ((TextField) node).getText().trim();
-                // Sadece içi dolu olan kutuları etiket olarak kabul et
                 if (!val.isEmpty()) {
                     newTags.add(val);
                 }
@@ -213,24 +203,24 @@ public class MangaDetailController {
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
-        
+
         Button editBtn = new Button("Düzenle");
         editBtn.setStyle("-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;");
         
         hbox.getChildren().addAll(idLabel, infoBox, spacer, editBtn);
         
-        // Sol Tık (Normal Tıklama) -> Detaya Git
+        // Sol Tık -> Detaya Git
         hbox.setOnMouseClicked(e -> {
-            if (e.getButton() == javafx.scene.input.MouseButton.PRIMARY) {
+            if (e.getButton() == MouseButton.PRIMARY) {
                 openChapterDetail(chapter);
             }
         });
         editBtn.setOnAction(e -> openChapterDetail(chapter));
         
-        // YENİ: Sağ Tık Menüsü (Context Menu)
-        javafx.scene.control.ContextMenu contextMenu = new javafx.scene.control.ContextMenu();
-        javafx.scene.control.MenuItem deleteItem = new javafx.scene.control.MenuItem("Bölümü Sil");
-        deleteItem.setStyle("-fx-text-fill: #ff5252; -fx-font-weight: bold;"); // Kırmızı uyarı rengi
+        // Sağ Tık Menüsü -> Bölümü Sil
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem deleteItem = new MenuItem("Bölümü Sil");
+        deleteItem.setStyle("-fx-text-fill: #ff5252; -fx-font-weight: bold;");
         deleteItem.setOnAction(e -> deleteChapter(chapter));
         contextMenu.getItems().add(deleteItem);
 
@@ -241,7 +231,6 @@ public class MangaDetailController {
         return hbox;
     }
 
-    // YENİ METOT: Yönlendirme motoru
     private void openChapterDetail(ProjectModel.Chapter chapter) {
         try {
             URL resourceUrl = getClass().getResource("/com/inkera/fxml/chapter_detail.fxml");
@@ -256,6 +245,41 @@ public class MangaDetailController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void deleteChapter(ProjectModel.Chapter chapter) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bölümü Sil");
+        alert.setHeaderText("'" + chapter.getTitle() + "' silinecek!");
+        alert.setContentText("Bu işlem geri alınamaz. Bölüm klasörü ve içindeki tüm çizimler kalıcı olarak silinecektir. Onaylıyor musunuz?");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setStyle("-fx-background-color: #2b2b2b; -fx-text-fill: white;");
+        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white;");
+        dialogPane.lookup(".header-panel").setStyle("-fx-background-color: #1e1e1e;");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            
+            File chapterFolder = new File(currentProject.getProjectPath() + "/Episodes/" + chapter.getTitle());
+            if (chapterFolder.exists()) {
+                deleteDirectoryRecursively(chapterFolder);
+            }
+
+            currentProject.getChapters().remove(chapter);
+            projectService.saveProject(currentProject); 
+            setProject(currentProject);
+        }
+    }
+
+    private void deleteDirectoryRecursively(File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteDirectoryRecursively(file);
+            }
+        }
+        directoryToBeDeleted.delete();
     }
 
     @FXML
@@ -277,7 +301,7 @@ public class MangaDetailController {
     private void showFullSummary() {
         if (currentProject == null) return;
         try {
-            javafx.stage.Stage dialogStage = new javafx.stage.Stage();
+            Stage dialogStage = new Stage();
             URL resourceUrl = getClass().getResource("/com/inkera/fxml/summary_dialog.fxml");
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             loader.setResources(com.inkera.services.LocaleManager.getInstance().getBundle());
@@ -289,7 +313,7 @@ public class MangaDetailController {
             dialogStage.setTitle("Hikaye Özeti (Sinopsis)"); 
             dialogStage.setScene(new javafx.scene.Scene(root));
             dialogStage.centerOnScreen();
-            dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.showAndWait();
 
         } catch (IOException e) {
@@ -301,7 +325,7 @@ public class MangaDetailController {
     private void handleAddChapter() {
         if (currentProject == null) return;
         try {
-            javafx.stage.Stage dialogStage = new javafx.stage.Stage();
+            Stage dialogStage = new Stage();
             URL resourceUrl = getClass().getResource("/com/inkera/fxml/new_chapter_dialog.fxml");
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             loader.setResources(com.inkera.services.LocaleManager.getInstance().getBundle());
@@ -310,16 +334,12 @@ public class MangaDetailController {
             NewChapterDialogController controller = loader.getController();
             controller.setProject(currentProject);
 
-            // Native OS Penceresi
             dialogStage.setTitle("Yeni Bölüm Ekle"); 
             dialogStage.setScene(new javafx.scene.Scene(root));
             dialogStage.centerOnScreen();
-            dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-            
-            // Pencere kapanana kadar bekle
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.showAndWait();
 
-            // Pencere kapandıktan sonra (yeni bölüm eklenmiş olabilir) UI'ı tazele!
             setProject(currentProject); 
 
         } catch (IOException e) {

@@ -48,7 +48,15 @@ public class ProjectModel {
         private String id;
         private String title;
         private int pageCount;
-        private String pageLayout; // "RTL" (Sağdan Sola) veya "LTR" (Soldan Sağa)
+        private String pageLayout; // "RTL" veya "LTR"
+        
+        // YENİ: Bölümün hangi sayfadan başladığı.
+        // true = Sol sayfadan başlar, false = Sağ sayfadan başlar.
+        // null = Henüz ilk sayfa (kapak) yerleştirilmemiş (İki tane '+' kartı gösterme durumu)
+        private Boolean startsOnLeft; 
+        
+        // YENİ: Sayfaların listesi (1, 2, 3...)
+        private java.util.List<Integer> pages;
 
         public String getId() { return id; }
         public void setId(String id) { this.id = id; }
@@ -61,5 +69,11 @@ public class ProjectModel {
 
         public String getPageLayout() { return pageLayout; }
         public void setPageLayout(String pageLayout) { this.pageLayout = pageLayout; }
+
+        public Boolean getStartsOnLeft() { return startsOnLeft; }
+        public void setStartsOnLeft(Boolean startsOnLeft) { this.startsOnLeft = startsOnLeft; }
+
+        public java.util.List<Integer> getPages() { return pages; }
+        public void setPages(java.util.List<Integer> pages) { this.pages = pages; }
     }
 }

@@ -7,6 +7,7 @@
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.inkera.ui.controllers.ChapterDetailController">
 
+    <!-- ÜST BİLGİ ÇUBUĞU -->
     <HBox spacing="10" style="-fx-padding: 10 20; -fx-background-color: #1e1e1e; -fx-border-color: #333; -fx-border-width: 0 0 1 0;" alignment="CENTER_LEFT">
         <Button text="← Mangaya Dön" styleClass="back-button" onAction="#backToMangaDetail"/>
         <Region HBox.hgrow="ALWAYS"/>
@@ -14,9 +15,15 @@
     </HBox>
 
     <HBox VBox.vgrow="ALWAYS">
-        <VBox spacing="20" alignment="TOP_CENTER" prefWidth="300" minWidth="300" maxWidth="300" style="-fx-padding: 30; -fx-background-color: #2b2b2b;">
-            <StackPane alignment="CENTER" maxWidth="180" maxHeight="250" style="-fx-background-color: #1e1e1e; -fx-border-color: #4caf50; -fx-border-width: 2; -fx-border-style: dashed; -fx-background-radius: 5; -fx-border-radius: 5;">
-                <Label text="Sayfa 1 (Kapak)" style="-fx-text-fill: #555;"/>
+        <!-- SOL PANEL: İlk Sayfa (Bölüm Kapağı) -->
+        <!-- YENİ: Genişlik 350 yapıldı, sağa gölge eklendi ve üstte kalması için view-order ayarlandı -->
+        <VBox spacing="20" alignment="TOP_CENTER" prefWidth="350" minWidth="350" maxWidth="350" 
+              style="-fx-padding: 30; -fx-background-color: #2b2b2b; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 20, 0, 5, 0); -fx-view-order: -1;">
+            
+            <!-- YENİ: Kapak Oranı 1:1.41 (200x282) olarak ayarlandı -->
+            <StackPane alignment="CENTER" prefWidth="200" prefHeight="282" minWidth="200" minHeight="282" maxWidth="200" maxHeight="282" 
+                       style="-fx-background-color: #1e1e1e; -fx-border-color: #4caf50; -fx-border-width: 2; -fx-border-style: dashed; -fx-background-radius: 5; -fx-border-radius: 5;">
+                <Label text="Sayfa 1 (Kapak)" style="-fx-text-fill: #555; -fx-font-weight: bold;"/>
             </StackPane>
             
             <VBox spacing="5" alignment="CENTER">
@@ -25,14 +32,15 @@
             </VBox>
         </VBox>
 
-        <VBox spacing="0" HBox.hgrow="ALWAYS" style="-fx-padding: 0;">
+        <!-- SAĞ PANEL: Sayfa Kartları -->
+        <VBox spacing="0" HBox.hgrow="ALWAYS" style="-fx-padding: 0; -fx-background-color: transparent;">
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 30 40 20 40;">
                 <Label text="Sayfalar" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button text="+ Yeni Sayfa" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10 20;"/>
             </HBox>
 
-            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
                 <content>
                     <VBox fx:id="pagesVBox" spacing="20" alignment="TOP_CENTER" style="-fx-padding: 20 40 40 40; -fx-background-color: transparent;"/>
                 </content>

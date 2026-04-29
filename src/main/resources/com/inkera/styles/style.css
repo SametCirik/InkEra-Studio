@@ -521,3 +521,39 @@
     -fx-font-weight: bold;
     -fx-alignment: center;
 }
+
+/* --- COMBOBOX KARANLIK TEMA --- */
+.combo-box {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #4caf50;
+    -fx-border-radius: 4;
+}
+.combo-box .list-cell {
+    -fx-text-fill: white; /* Kapalıyken görünen yazı */
+}
+.combo-box-popup .list-view {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #4caf50;
+}
+.combo-box-popup .list-cell {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white; /* Açılır listedeki yazılar */
+}
+.combo-box-popup .list-cell:hover, .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: #4caf50;
+}
+
+/* --- SAĞ TIK MENÜSÜ (CONTEXT MENU) --- */
+.context-menu {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #333;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 5);
+}
+.context-menu .menu-item:focused {
+    -fx-background-color: #3c3f41;
+    -fx-background-radius: 4;
+}
