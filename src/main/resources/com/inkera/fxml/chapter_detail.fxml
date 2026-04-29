@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="0" style="-fx-background-color: #252526;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.inkera.ui.controllers.ChapterDetailController">
+
+    <HBox spacing="10" style="-fx-padding: 10 20; -fx-background-color: #1e1e1e; -fx-border-color: #333; -fx-border-width: 0 0 1 0;" alignment="CENTER_LEFT">
+        <Button text="← Mangaya Dön" styleClass="back-button" onAction="#backToMangaDetail"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="headerTitleLabel" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <HBox VBox.vgrow="ALWAYS">
+        <VBox spacing="20" alignment="TOP_CENTER" prefWidth="300" minWidth="300" maxWidth="300" style="-fx-padding: 30; -fx-background-color: #2b2b2b;">
+            <StackPane alignment="CENTER" maxWidth="180" maxHeight="250" style="-fx-background-color: #1e1e1e; -fx-border-color: #4caf50; -fx-border-width: 2; -fx-border-style: dashed; -fx-background-radius: 5; -fx-border-radius: 5;">
+                <Label text="Sayfa 1 (Kapak)" style="-fx-text-fill: #555;"/>
+            </StackPane>
+            
+            <VBox spacing="5" alignment="CENTER">
+                <Label fx:id="chapterTitleLabel" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <Label fx:id="layoutInfoLabel" style="-fx-text-fill: #4caf50;"/>
+            </VBox>
+        </VBox>
+
+        <VBox spacing="0" HBox.hgrow="ALWAYS" style="-fx-padding: 0;">
+            <HBox alignment="CENTER_LEFT" style="-fx-padding: 30 40 20 40;">
+                <Label text="Sayfalar" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="+ Yeni Sayfa" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+            </HBox>
+
+            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+                <content>
+                    <VBox fx:id="pagesVBox" spacing="20" alignment="TOP_CENTER" style="-fx-padding: 20 40 40 40; -fx-background-color: transparent;"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </HBox>
+</VBox>

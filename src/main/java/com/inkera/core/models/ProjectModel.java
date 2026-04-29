@@ -45,13 +45,13 @@ public class ProjectModel {
     public void setChapters(List<Chapter> chapters) { this.chapters = chapters; }
 
     public static class Chapter {
-        private int id;
+        private String id;
         private String title;
         private int pageCount;
-        private boolean isCompleted;
+        private String pageLayout; // "RTL" (Sağdan Sola) veya "LTR" (Soldan Sağa)
 
-        public int getId() { return id; }
-        public void setId(int id) { this.id = id; }
+        public String getId() { return id; }
+        public void setId(String id) { this.id = id; }
 
         public String getTitle() { return title; }
         public void setTitle(String title) { this.title = title; }
@@ -59,7 +59,7 @@ public class ProjectModel {
         public int getPageCount() { return pageCount; }
         public void setPageCount(int pageCount) { this.pageCount = pageCount; }
 
-        public boolean isCompleted() { return isCompleted; }
-        public void setCompleted(boolean completed) { this.isCompleted = completed; }
+        public String getPageLayout() { return pageLayout; }
+        public void setPageLayout(String pageLayout) { this.pageLayout = pageLayout; }
     }
 }

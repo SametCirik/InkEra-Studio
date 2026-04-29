@@ -213,12 +213,49 @@ public class MangaDetailController {
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
-
+        
         Button editBtn = new Button("Düzenle");
         editBtn.setStyle("-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;");
         
         hbox.getChildren().addAll(idLabel, infoBox, spacer, editBtn);
+        
+        // Sol Tık (Normal Tıklama) -> Detaya Git
+        hbox.setOnMouseClicked(e -> {
+            if (e.getButton() == javafx.scene.input.MouseButton.PRIMARY) {
+                openChapterDetail(chapter);
+            }
+        });
+        editBtn.setOnAction(e -> openChapterDetail(chapter));
+        
+        // YENİ: Sağ Tık Menüsü (Context Menu)
+        javafx.scene.control.ContextMenu contextMenu = new javafx.scene.control.ContextMenu();
+        javafx.scene.control.MenuItem deleteItem = new javafx.scene.control.MenuItem("Bölümü Sil");
+        deleteItem.setStyle("-fx-text-fill: #ff5252; -fx-font-weight: bold;"); // Kırmızı uyarı rengi
+        deleteItem.setOnAction(e -> deleteChapter(chapter));
+        contextMenu.getItems().add(deleteItem);
+
+        hbox.setOnContextMenuRequested(e -> {
+            contextMenu.show(hbox, e.getScreenX(), e.getScreenY());
+        });
+        
         return hbox;
+    }
+
+    // YENİ METOT: Yönlendirme motoru
+    private void openChapterDetail(ProjectModel.Chapter chapter) {
+        try {
+            URL resourceUrl = getClass().getResource("/com/inkera/fxml/chapter_detail.fxml");
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            loader.setResources(com.inkera.services.LocaleManager.getInstance().getBundle());
+            Parent detailView = loader.load();
+            
+            ChapterDetailController controller = loader.getController();
+            controller.setChapterContext(currentProject, chapter);
+            
+            HomeController.setCenterView(detailView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
