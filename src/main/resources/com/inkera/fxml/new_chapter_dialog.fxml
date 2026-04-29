@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" prefWidth="400" style="-fx-background-color: #2b2b2b;" 
+      stylesheets="@../styles/style.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.inkera.ui.controllers.NewChapterDialogController">
+    
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+
+    <Label text="Yeni Bölüm Başlat" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <VBox spacing="8">
+        <Label text="Bölüm Adı (Klasör İsmi Olacak):" style="-fx-text-fill: #888;"/>
+        <TextField fx:id="chapterTitleField" promptText="Örn: Bölüm 1 - Uyanış" styleClass="text-field" style="-fx-background-color: #1e1e1e; -fx-text-fill: white; -fx-border-color: #4caf50; -fx-border-radius: 4; -fx-padding: 8;"/>
+    </VBox>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+        <Button text="İptal" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-cursor: hand;"/>
+        <Button text="Oluştur" onAction="#handleCreate" styleClass="hero-button" prefWidth="120" prefHeight="35"/>
+    </HBox>
+</VBox>

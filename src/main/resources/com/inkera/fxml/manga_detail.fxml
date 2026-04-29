@@ -40,7 +40,7 @@
                     <Label fx:id="totalChaptersLabel" style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button text="%mangadetail.addChapter" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+                <Button text="%mangadetail.addChapter" onAction="#handleAddChapter" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10 20;"/>
             </HBox>
 
             <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">

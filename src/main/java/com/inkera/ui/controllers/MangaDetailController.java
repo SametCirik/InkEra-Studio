@@ -259,4 +259,34 @@ public class MangaDetailController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleAddChapter() {
+        if (currentProject == null) return;
+        try {
+            javafx.stage.Stage dialogStage = new javafx.stage.Stage();
+            URL resourceUrl = getClass().getResource("/com/inkera/fxml/new_chapter_dialog.fxml");
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            loader.setResources(com.inkera.services.LocaleManager.getInstance().getBundle());
+            Parent root = loader.load();
+
+            NewChapterDialogController controller = loader.getController();
+            controller.setProject(currentProject);
+
+            // Native OS Penceresi
+            dialogStage.setTitle("Yeni Bölüm Ekle"); 
+            dialogStage.setScene(new javafx.scene.Scene(root));
+            dialogStage.centerOnScreen();
+            dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            
+            // Pencere kapanana kadar bekle
+            dialogStage.showAndWait();
+
+            // Pencere kapandıktan sonra (yeni bölüm eklenmiş olabilir) UI'ı tazele!
+            setProject(currentProject); 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
