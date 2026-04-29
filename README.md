@@ -1,15 +1,12 @@
 # InkEra Studio
 
 <div align="center">
- <p><strong>
-   An open-source, professional-grade manga and comic creation studio tailored for Linux.
- </strong></p>
-</div>
-<div align="center">
-  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-  [![JavaFX](https://img.shields.io/badge/JavaFX-21-orange.svg)](https://openjfx.io/)
-  [![Platform: Linux](https://img.shields.io/badge/Platform-Linux-green.svg)]()
-  [![Stage: Pre--Alpha](https://img.shields.io/badge/Stage-Pre--Alpha-red.svg)]()
+  <p><strong>An open-source, professional-grade manga and comic creation studio tailored for Linux.</strong></p>
+  
+  <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
+  <a href="https://openjfx.io/"><img src="https://img.shields.io/badge/JavaFX-21-orange.svg" alt="JavaFX"></a>
+  <img src="https://img.shields.io/badge/Platform-Linux-green.svg" alt="Platform: Linux">
+  <img src="https://img.shields.io/badge/Stage-Pre--Alpha-red.svg" alt="Stage: Pre--Alpha">
 </div>
 
 ---
