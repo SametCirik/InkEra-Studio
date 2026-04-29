@@ -10,7 +10,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# --- IDE (VS Code & IntelliJ vb.) ---
+# --- IDE (VS Code) ---
 .vscode/
 .idea/
 *.iml
@@ -28,3 +28,6 @@ Thumbs.db
 # --- InkEra Studio Yerel Verileri (ÇOK ÖNEMLİ) ---
 user-data/
 *.log
+
+# --- Obsidian (Obsidian temaları vb.) ---
+.obsidian/
