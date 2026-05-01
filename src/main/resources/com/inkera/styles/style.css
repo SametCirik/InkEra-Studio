@@ -1,20 +1,19 @@
 /* style.css */
 .root {
-    /* Ana arka plan rengi (Koyu Gri) */
     -fx-background-color: #2b2b2b;
-    /* Varsayılan yazı tipi ve boyutu */
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 14px;
     -fx-text-fill: #e0e0e0;
+    /* Noto Sans CJK, Linux'ta uzak doğu dilleri için en kararlı fonttur */
+    -fx-font-family: "Segoe UI", "Noto Sans", "Noto Sans CJK JP", "Source Han Sans JP", sans-serif;
+    -fx-font-weight: 500; /* Çok ince görünmesini engellemek için orta kalınlık */
 }
 
-/* Paneller, Araç Çubukları vb. için daha açık gri */
 .panel {
     -fx-background-color: #3c3f41;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
 }
 
-/* Butonlar (Tool butonları gibi) */
 .button {
     -fx-background-color: #3c3f41;
     -fx-text-fill: #e0e0e0;
@@ -32,7 +31,6 @@
     -fx-background-color: #2b2b2b;
 }
 
-/* ScrollBar Özelleştirme (Modern ince çubuk) */
 .scroll-bar:vertical, .scroll-bar:horizontal {
     -fx-background-color: transparent;
 }
@@ -41,23 +39,20 @@
     -fx-background-radius: 10;
 }
 
-/* Yan Menü (Sidebar) */
 .sidebar {
-    -fx-background-color: #1e1e1e; /* Daha koyu gri */
+    -fx-background-color: #1e1e1e;
     -fx-border-color: #333333;
-    -fx-border-width: 0 1 0 0; /* Sadece sağa çizgi çek */
+    -fx-border-width: 0 1 0 0;
 }
 
-/* Ana Ekran Başlığı (Logo Text) */
 .brand-label {
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #4caf50; /* O meşhur InkEra Yeşili */
+    -fx-text-fill: #4caf50;
     -fx-effect: dropshadow(three-pass-box, rgba(76, 175, 80, 0.4), 10, 0, 0, 0);
 }
 
-/* Menü Butonları - Sabit ve Kararlı */
 .menu-button {
     -fx-background-color: transparent;
     -fx-text-fill: #aaaaaa;
@@ -65,23 +60,16 @@
     -fx-font-size: 14px;
     -fx-padding: 10 20;
     -fx-cursor: hand;
-    
-    /* TİTREMEYİ ÖNLEYEN SİHİR: */
-    /* Normalde de 3px çerçeve olsun ama şeffaf olsun. */
-    /* Böylece hover olunca çerçeve eklenince butonun boyutu değişmez. */
     -fx-border-color: transparent;
-    -fx-border-width: 0 0 0 3; /* Sadece sol tarafa 3px yer ayır */
+    -fx-border-width: 0 0 0 3;
 }
 
 .menu-button:hover {
     -fx-background-color: #2d2d2d;
     -fx-text-fill: #4caf50;
-    
-    /* Sadece rengi değiştiriyoruz, boyut aynı kalıyor */
     -fx-border-color: #4caf50; 
 }
 
-/* Aktif Olan Buton */
 .menu-button-active {
     -fx-background-color: #2d2d2d;
     -fx-text-fill: #4caf50;
@@ -89,7 +77,6 @@
     -fx-font-weight: bold;
 }
 
-/* Büyük "Yeni Proje" Kartı/Butonu */
 .hero-button {
     -fx-background-color: #4caf50;
     -fx-text-fill: white;
@@ -104,14 +91,12 @@
     -fx-effect: dropshadow(three-pass-box, rgba(76, 175, 80, 0.6), 15, 0, 0, 0);
 }
 
-/* TextField Odaklanma Efekti */
 .text-field:focused {
     -fx-border-color: #4caf50;
     -fx-border-width: 1;
     -fx-background-color: #45474a;
 }
 
-/* Son Projeler Kart Yapısı */
 .project-card {
     -fx-background-color: #333333;
     -fx-background-radius: 8;
@@ -120,22 +105,17 @@
     -fx-padding: 0; 
 }
 
-/* Kartın üzerine gelince (Hover) */
 .project-card:hover {
     -fx-background-color: #3c3f41;
-    -fx-effect: dropshadow(three-pass-box, rgba(76, 175, 80, 0.4), 10, 0, 0, 0); /* Yeşil Gölge */
-    -fx-translate-y: -2; /* Hafif yukarı kalkma efekti */
+    -fx-effect: dropshadow(three-pass-box, rgba(76, 175, 80, 0.4), 10, 0, 0, 0);
+    -fx-translate-y: -2;
 }
 
-/* Kartın içindeki resim alanı */
 .card-thumb {
-    -fx-background-color: #202020; /* Resim yoksa koyu gri */
-    -fx-background-radius: 8 8 0 0; /* Sadece üst köşeler yuvarlak */
+    -fx-background-color: #202020;
+    -fx-background-radius: 8 8 0 0;
 }
 
-/* --- style.css altına ekle --- */
-
-/* Son Düzenlenen Banner */
 .last-project-banner {
     -fx-background-color: #2b2b2b;
     -fx-border-color: #333;
@@ -148,10 +128,9 @@
 
 .last-project-banner:hover {
     -fx-background-color: #333;
-    -fx-border-color: #4caf50; /* Üzerine gelince yeşil çerçeve */
+    -fx-border-color: #4caf50;
 }
 
-/* Galeri Öğeleri */
 .gallery-item {
     -fx-cursor: hand;
     -fx-alignment: TOP_CENTER;
@@ -162,12 +141,9 @@
 }
 
 .gallery-item:hover Label {
-    -fx-text-fill: #4caf50; /* Üzerine gelince yazı yeşillensin */
+    -fx-text-fill: #4caf50;
 }
 
-/* --- style.css altına ekle --- */
-
-/* Bölüm Listesi (Chapter List) */
 .chapter-item {
     -fx-background-color: #333;
     -fx-padding: 10 15;
@@ -179,10 +155,9 @@
 
 .chapter-item:hover {
     -fx-background-color: #3c3f41;
-    -fx-border-color: #4caf50; /* Üzerine gelince yeşil çizgi */
+    -fx-border-color: #4caf50;
 }
 
-/* Küçük Etiketler (Tag) örn: "Sağdan Sola" */
 .meta-tag {
     -fx-background-color: #202020;
     -fx-text-fill: #888;
@@ -191,7 +166,6 @@
     -fx-font-size: 11px;
 }
 
-/* Geri Dön Butonu */
 .back-button {
     -fx-background-color: transparent;
     -fx-text-fill: #aaaaaa;
@@ -205,81 +179,63 @@
     -fx-background-radius: 5;
 }
 
-/* ================================== */
-/*          AYARLAR PANELI (Yeni)     */
-/* ================================== */
-
-/* TabPanenin genelini etkilemeden sadece başlık alanını düzenleyelim */
 .tab-pane .tab-header-area {
     -fx-background-color: transparent;
     -fx-padding: 10 0 0 0;
     -fx-border-color: #444;
-    -fx-border-width: 0 0 1 0; /* Sadece altına bir çizgi */
+    -fx-border-width: 0 0 1 0;
 }
 
-/* Sekmelerin etrafındaki dış çerçeveyi kaldır */
 .tab-pane .tab-header-background {
     -fx-background-color: transparent;
 }
 
-/* Her bir sekme (Tab) - Daha az buton gibi görünen stil */
 .tab-pane .tab {
     -fx-background-color: transparent;
-    -fx-padding: 8 20; /* Padding'i biraz azalttık */
+    -fx-padding: 8 20;
     -fx-cursor: hand;
-    -fx-border-width: 0 0 2 0; /* Altında 2px'lik bir çizgi için yer ayıralım */
-    -fx-border-color: transparent; /* Normalde bu çizgi görünmez */
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
 
-/* Sekmenin içindeki metin etiketi */
 .tab-pane .tab .tab-label {
      -fx-font-size: 14px;
-     -fx-text-fill: #aaa; /* Normalde soluk renk */
+     -fx-text-fill: #aaa;
      -fx-alignment: CENTER;
 }
 
-/* Üzerine gelinen sekme */
 .tab-pane .tab:hover .tab-label {
-    -fx-text-fill: white; /* Metin rengi beyaz olur */
+    -fx-text-fill: white;
 }
 
-/* Seçili olan sekme */
 .tab-pane .tab:selected {
-    -fx-border-color: #4caf50; /* Sadece seçili olanın alt çizgisi yeşil olur */
+    -fx-border-color: #4caf50;
 }
 
-/* Seçili sekmenin metni */
 .tab-pane .tab:selected .tab-label {
-    -fx-text-fill: #4caf50; /* Metin rengi aktif yeşil olur */
+    -fx-text-fill: #4caf50;
     -fx-font-weight: bold;
 }
 
-/* Sekmelerin odaklanma efektini kaldıralım, bu da kutu hissiyatı verebilir */
 .tab-pane .tab:focused {
     -fx-focus-color: transparent;
     -fx-border-color: transparent #4caf50 transparent transparent;
 }
 
-/* Seçili ve odaklanılmış sekme */
 .tab-pane .tab:selected:focused {
     -fx-border-color: #4caf50;
 }
 
-
-/* Sekme içeriklerinin bulunduğu alan */
 .tab-pane .tab-content-area {
     -fx-background-color: transparent;
-    -fx-padding: 25 5; /* Üstten ve yandan boşluk */
+    -fx-padding: 25 5;
 }
-
-/* --- PENCERE BUTONLARI (TitleBar) --- */
 
 .title-button {
     -fx-background-color: transparent;
     -fx-text-fill: #cccccc;
-    /* Linux için DejaVu Sans veya Liberation Sans öncelikli olsun */
     -fx-font-family: "DejaVu Sans", "Liberation Sans", "Segoe UI Symbol", sans-serif;
     -fx-font-size: 14px;
     -fx-padding: 0;
@@ -306,9 +262,6 @@
     -fx-background-color: #b30d1b;
 }
 
-/* --- WORKSPACE (Çizim Ekranı) STİLLERİ --- */
-
-/* Üst Bar */
 .workspace-topbar {
     -fx-background-color: #252526;
     -fx-padding: 5 10;
@@ -316,14 +269,12 @@
     -fx-border-width: 0 0 1 0;
 }
 
-/* Yan Paneller */
 .workspace-sidebar {
     -fx-background-color: #252526;
     -fx-border-color: #333;
-    -fx-border-width: 0 1 0 1; /* Sadece yanlarda çizgi olsun */
+    -fx-border-width: 0 1 0 1;
 }
 
-/* İkonlu Butonlar (Toolbar) */
 .icon-button {
     -fx-background-color: transparent;
     -fx-cursor: hand;
@@ -334,7 +285,6 @@
     -fx-background-radius: 4;
 }
 
-/* Araç Butonları (Toolbox) */
 .tool-button {
     -fx-background-color: transparent;
     -fx-cursor: hand;
@@ -345,10 +295,9 @@
     -fx-background-color: #3e3e42;
 }
 .tool-button:pressed {
-    -fx-background-color: #007acc; /* Tıklanınca mavi */
+    -fx-background-color: #007acc;
 }
 
-/* Metin Butonları (Dosya, Düzenle vb.) */
 .text-button {
     -fx-background-color: transparent;
     -fx-text-fill: #ccc;
@@ -360,7 +309,6 @@
     -fx-background-color: #3e3e42;
 }
 
-/* Küçük Accent Buton (Dışa Aktar) */
 .accent-button-small {
     -fx-background-color: #0e639c;
     -fx-text-fill: white;
@@ -373,7 +321,6 @@
     -fx-background-color: #1177bb;
 }
 
-/* Katman Öğeleri */
 .layer-item {
     -fx-padding: 5 10;
     -fx-background-color: transparent;
@@ -390,23 +337,20 @@
 }
 
 /* --- MANGA KART STİLLERİ --- */
-
-/* Kartın Ana Taşıyıcısı */
 .manga-card {
     -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-alignment: TOP_CENTER;
 }
 
-/* Kapak Resminin İçinde Durduğu Çerçeve */
 .manga-card-cover {
     -fx-background-color: #202020;
     
-    /* YENİ: Boyutları KİLİTLE (Örn: 160x240 oranında) */
-    -fx-min-width: 160px;
-    -fx-max-width: 160px;
-    -fx-min-height: 240px;
-    -fx-max-height: 240px;
+    /* GÜNCELLENDİ: Maksimum ebatları 230x324 yaparak kısıtlamayı kaldırıyoruz */
+    -fx-min-width: 230px;
+    -fx-max-width: 230px;
+    -fx-min-height: 324px;
+    -fx-max-height: 324px;
     
     -fx-border-color: #333333;
     -fx-border-width: 1;
@@ -414,64 +358,46 @@
     -fx-background-radius: 6;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
     -fx-transition: -fx-border-color 0.2s, -fx-effect 0.2s, -fx-translate-y 0.2s;
-    
-    /* YENİ: İçindeki elemanları her zaman merkeze hizala */
     -fx-alignment: center; 
 }
 
-/* Başlık Metni */
 .manga-title {
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
 
-/* KARTIN ÜZERİNE GELİNDİĞİNDE (HOVER) OLACAKLAR: */
-
-/* 1. Kapak çerçevesi yeşil olur, yeşil gölge atar ve hafifçe yukarı kalkar */
 .manga-card:hover .manga-card-cover {
     -fx-border-color: #4caf50;
     -fx-effect: dropshadow(three-pass-box, rgba(76, 175, 80, 0.4), 15, 0, 0, 0);
-    -fx-translate-y: 0; 
+    -fx-translate-y: 0; /* Hover efektini hafif artırdım ki o kocaman kart havaya kalksın */
 }
 
-/* 2. Başlık metni de yeşil olur */
 .manga-card:hover .manga-title {
     -fx-text-fill: #4caf50;
 }
-
-/* --- YENİ PROJE KARTI ÖZEL STİLLERİ --- */
 
 .new-project-cover {
     -fx-background-color: transparent;
     -fx-border-color: #555555;
     -fx-border-style: dashed;
     -fx-border-width: 2;
-    -fx-effect: none; /* Boş kartta gölge olmasın */
+    -fx-effect: none;
 }
 
-/* Üzerine gelince (Hover) içini hafif yeşil yapıp parlatıyoruz */
 .manga-card:hover .new-project-cover {
     -fx-border-color: #4caf50;
-    -fx-background-color: rgba(76, 175, 80, 0.05); /* Çok hafif transparan yeşil */
-    -fx-border-style: solid; /* Hover olunca çizgi düzleşsin */
+    -fx-background-color: rgba(76, 175, 80, 0.05);
+    -fx-border-style: solid;
 }
 
 /* --- CUSTOM SCROLLBAR (Karanlık Tema Uyumlu) --- */
-
-.scroll-bar:vertical,
-.scroll-bar:horizontal {
-    -fx-background-color: transparent;
-}
-
-/* Kaydırma Çubuğunun Arka Planı (Track) */
 .scroll-bar:vertical .track,
 .scroll-bar:horizontal .track {
     -fx-background-color: #252526;
     -fx-border-color: transparent;
 }
 
-/* Kaydırdığımız Tutamaç (Thumb) */
 .scroll-bar:vertical .thumb,
 .scroll-bar:horizontal .thumb {
     -fx-background-color: #444444;
@@ -479,13 +405,11 @@
     -fx-border-radius: 5em;
 }
 
-/* Üzerine Gelindiğinde (Hover) Yeşile Dönsün */
 .scroll-bar:vertical .thumb:hover,
 .scroll-bar:horizontal .thumb:hover {
     -fx-background-color: #4caf50;
 }
 
-/* Yukarı/Aşağı ok butonlarını gizle (Modern görünüm için) */
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-background-color: transparent;
@@ -493,10 +417,10 @@
 }
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
-    -fx-shape: " "; /* İçi boş şekil */
+    -fx-shape: " ";
 }
 
-/* Normal Etiket (Yeşil Yazılı) */
+/* --- TAG SISTEMI --- */
 .meta-tag {
     -fx-background-color: #1e1e1e;
     -fx-text-fill: #4caf50;
@@ -508,7 +432,6 @@
     -fx-font-weight: bold;
 }
 
-/* Düzenleme Modundaki Mini Kutucuklar */
 .mini-tag-input {
     -fx-background-color: #1e1e1e;
     -fx-text-fill: #4caf50;
@@ -529,7 +452,7 @@
     -fx-border-radius: 4;
 }
 .combo-box .list-cell {
-    -fx-text-fill: white; /* Kapalıyken görünen yazı */
+    -fx-text-fill: white;
 }
 .combo-box-popup .list-view {
     -fx-background-color: #1e1e1e;
@@ -537,7 +460,7 @@
 }
 .combo-box-popup .list-cell {
     -fx-background-color: #1e1e1e;
-    -fx-text-fill: white; /* Açılır listedeki yazılar */
+    -fx-text-fill: white;
 }
 .combo-box-popup .list-cell:hover, .combo-box-popup .list-cell:filled:selected {
     -fx-background-color: #3c3f41;

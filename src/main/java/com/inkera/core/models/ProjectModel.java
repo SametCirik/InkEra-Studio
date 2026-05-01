@@ -3,6 +3,7 @@ package com.inkera.core.models;
 import java.util.List;
 
 public class ProjectModel {
+    private String id;
     private String projectId;
     private String title;
     private String author;
@@ -12,7 +13,10 @@ public class ProjectModel {
     private String coverImagePath;
     private List<Chapter> chapters;
     private String projectPath;
-    private String synopsis; // YENİ: Hikaye özeti
+    private String synopsis; 
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getSynopsis() { return synopsis; }
     public void setSynopsis(String synopsis) { this.synopsis = synopsis; }

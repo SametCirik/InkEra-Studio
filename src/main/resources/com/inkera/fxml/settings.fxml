@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
 <VBox id="settingsPane" spacing="20" style="-fx-padding: 40; -fx-background-color: #252526;"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
@@ -16,20 +14,80 @@
         <tabs>
             <Tab text="%settings.language">
                 <content>
-                    <VBox spacing="10" style="-fx-padding: 20;">
-                        <Label text="%settings.language.label" style="-fx-text-fill: #ccc;"/>
-                        <ComboBox fx:id="languageComboBox" />
+                    <VBox spacing="15" style="-fx-padding: 25;">
+                        <Label text="%settings.language.label" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="languageComboBox" prefWidth="200" />
+                        <Label text="%settings.language.hint" style="-fx-text-fill: #888; -fx-font-size: 11px;" wrapText="true"/>
                     </VBox>
                 </content>
             </Tab>
-            <Tab text="%settings.tab.interface">
+
+            <Tab text="%settings.tab.tablet">
                 <content>
-                    <VBox spacing="10" style="-fx-padding: 20;">
-                        <Label text="%settings.comingsoon" style="-fx-text-fill: #ccc;"/>
-                    </VBox>
+                    <!-- GÜNCELLENDİ: fx:id eklendi -->
+                    <ScrollPane fx:id="tabletScrollPane" fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+                        <content>
+                            <VBox fx:id="tabletSettingsContainer" spacing="35" style="-fx-padding: 25 25 40 25; -fx-background-color: transparent;" focusTraversable="true">
+                                
+                                <VBox spacing="15" style="-fx-background-color: #1e1e1e; -fx-padding: 20; -fx-background-radius: 6; -fx-border-color: #333; -fx-border-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+                                    <HBox alignment="CENTER_LEFT" spacing="15">
+                                        <Label text="Donanım / Cihaz Bağlantısı" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Circle fx:id="deviceStatusDot" radius="5" fill="#ff5252" />
+                                        <Label fx:id="deviceStatusLabel" text="Cihaz Bekleniyor..." style="-fx-text-fill: #888; -fx-font-weight: bold;"/>
+                                    </HBox>
+                                    
+                                    <HBox spacing="10">
+                                        <ComboBox fx:id="deviceComboBox" promptText="Aktif cihaz bulunamadı..." prefWidth="250" style="-fx-background-color: #2b2b2b; -fx-text-fill: white; -fx-border-color: #444; -fx-border-radius: 3;" />
+                                        <Button fx:id="scanDevicesBtn" text="USB Portlarını Tara" style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand; -fx-border-color: #555; -fx-border-radius: 3;" />
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="5">
+                                    <HBox alignment="CENTER_LEFT" spacing="15">
+                                        <Label text="%settings.tablet.pressure" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                                        <Button fx:id="resetCurveBtn" text="↺ Sıfırla" visible="false" style="-fx-background-color: transparent; -fx-text-fill: #aaaaaa; -fx-cursor: hand; -fx-padding: 0; -fx-font-weight: bold;"/>
+                                    </HBox>
+                                    <Label text="%settings.tablet.pressure.desc" style="-fx-text-fill: #888; -fx-font-size: 11px;"/>
+                                    
+                                    <HBox spacing="40" style="-fx-padding: 15 0 0 0;" alignment="CENTER_LEFT">
+                                        <HBox spacing="10" alignment="CENTER_LEFT">
+                                            <Label text="Çıktı" style="-fx-text-fill: #888; -fx-font-weight: bold; -fx-rotate: -90; -fx-translate-y: 80; -fx-translate-x: 5;"/>
+                                            <VBox spacing="5">
+                                                <Pane fx:id="pressureGraphPane" prefWidth="300" prefHeight="200" minWidth="300" minHeight="200" maxWidth="300" maxHeight="200" style="-fx-background-color: #1e1e1e; -fx-border-color: #444; -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: crosshair;"/>
+                                                <Label text="Kalem Basıncı" style="-fx-text-fill: #888; -fx-font-weight: bold;" alignment="CENTER" prefWidth="300"/>
+                                            </VBox>
+                                        </HBox>
+
+                                        <VBox spacing="5" alignment="CENTER">
+                                            <Pane fx:id="brushPreviewPane" prefWidth="250" prefHeight="200" minWidth="250" minHeight="200" style="-fx-background-color: #1e1e1e; -fx-border-color: #444; -fx-border-width: 2; -fx-border-radius: 4; -fx-background-radius: 4; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 5);"/>
+                                            <Label text="Fırça Kalınlık Önizlemesi" style="-fx-text-fill: #888; -fx-font-weight: bold; -fx-font-size: 11px;"/>
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="10">
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <Label text="%settings.tablet.smoothing" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="smoothingValLabel" text="6" style="-fx-text-fill: #4caf50; -fx-font-weight: bold;"/>
+                                    </HBox>
+                                    <Slider fx:id="smoothingSlider" min="0" max="20" value="6" style="-fx-padding: 10 0;" />
+                                    <Label text="%settings.tablet.smoothing.desc" style="-fx-text-fill: #888; -fx-font-size: 11px;"/>
+                                </VBox>
+
+                                <VBox spacing="10" style="-fx-background-color: #1e1e1e; -fx-padding: 20; -fx-background-radius: 6; -fx-border-color: #333; -fx-border-radius: 6;">
+                                    <Label text="%settings.tablet.testarea" style="-fx-text-fill: #888; -fx-font-weight: bold;"/>
+                                    <ProgressBar fx:id="pressureTestBar" progress="0.0" prefWidth="600" style="-fx-accent: #4caf50;" />
+                                </VBox>
+
+                            </VBox>
+                        </content>
+                    </ScrollPane>
                 </content>
             </Tab>
-             <Tab text="%settings.tab.account">
+
+            <Tab text="%settings.tab.interface">
                 <content>
                     <VBox spacing="10" style="-fx-padding: 20;">
                         <Label text="%settings.comingsoon" style="-fx-text-fill: #ccc;"/>
@@ -38,5 +96,4 @@
             </Tab>
         </tabs>
     </TabPane>
-
 </VBox>

@@ -8,6 +8,34 @@
 
 ---
 
+## 2026-05-01
+
+- **Eklenenler**
+    - **Grafik Tablet Ayarları:** Ayarlar menüsüne donanım yapılandırması için özel bir sekme eklendi.
+    - **İnteraktif Basınç Eğrisi:** Kalem basınç hassasiyetini görsel olarak ayarlamak için sürüklenebilir Kuadratik Bezier eğrisi (1:1 doğrusal referans çizgisi ve sıfırlama işlevi ile birlikte) eklendi.
+    - **Dinamik Fırça Önizlemesi:** Basınç eğrisindeki ayarlamaları dalgalı bir fırça darbesi olarak anlık gösteren gerçek zamanlı matematiksel bezier çözücü sisteme entegre edildi.
+    - **Donanım Tarayıcı:** Gelecekteki Huion 420 / OpenTabletDriver entegrasyonları için "USB Portlarını Tara" simülasyonu ve dinamik durum göstergeleri (Taranıyor -> Bağlandı) eklendi.
+    - **Yerelleştirme (i18n):** Rusça (`ru`) çeviriler tamamlandı ve manga endüstrisi terminolojisine uygun (örn. 連載中 - Devam Ediyor) Japonca (`ja`) dil desteği eklendi.
+
+- **Düzeltilenler**
+    - **JavaFX Odak (Focus) Hatası:** Dinamik donanım taraması bittiğinde `ScrollPane`'in istemsizce aşağı kayma sorunu, `Platform.runLater` kullanılarak ve odak zorlanarak çözüldü.
+    - **Arayüz Renk Tutarlılığı:** Tablet ayarlarındaki renk paleti agresif kırmızılardan stüdyo standartlarına uygun koyu gri (`#444`) ve kırık beyaz (`#e0e0e0`) tonlarına revize edildi.
+
+--
+
+## 2026-04-30
+
+-  **Eklenenler**
+    - **Proje Silme Motoru:** Hem tekli Resim hem de Manga projeleri için iç içe klasör silme (recursive deletion) ve UUID/Yol eşleşmeli JSON kayıt temizleme sistemi uygulandı.
+    - **Sağ Tık Menüleri:** Galeri kartlarına, karanlık temaya uygun onay diyalogları içeren "Projeyi Sil" içerik (context) menüleri eklendi.
+    - **Yazar Üstverisi (Metadata):** Projeler artık ilgili üstveri ve JSON kayıtlarında "Yazar" alanını kabul ediyor ve saklıyor.
+
+- **Değiştirilenler**
+    - **Yeni Proje Diyaloğu:** Standart `TextInputDialog`, stüdyonun karanlık temasına sıkı sıkıya bağlı kalan, çoklu girdiye sahip özel bir `GridPane` diyaloğu ile değiştirildi.
+    - **Galeri Arayüzü:** Galeri kartları; başlıkları ve yazar adlarını ortalayacak, uzun metinleri üç nokta (`...`) ile kırpacak şekilde yeniden düzenlendi ve kart görünümünden tarih etiketi kaldırıldı.
+
+---
+
 ## 2026-04-29
 
 - **Bölüm & Sayfa Motoru (Print Simulation):**
@@ -18,8 +46,17 @@
 
 - **UI/UX & Pencere Yönetimi:**
     - **Studio Stabilization:** Uygulama penceresinin yeniden boyutlandırılması (resize/fullscreen) kapatılarak, arayüzün her ekranda stabil kalmasını sağlayan sabit "Premium Studio" (1150x800) çözünürlüğüne geçildi.
+    - **KWin Override (Centering Hook):** Linux pencere yöneticilerinin (KWin) JavaFX yaşam döngüsüyle çakışmasını engellemek için, ekran boyutlarını matematiksel olarak hesaplayıp pencereyi zorla merkeze sabitleyen `forceCenterOnScreen` metodu yazıldı.
     - **Karanlık Tema İyileştirmeleri:** Açılır menüler (ComboBox) ve sağ tık (Context Menu) baloncuları Windows/Linux varsayılan görünümünden çıkartılarak stüdyo karanlık temasına entegre edildi.
     - **Bölüm Detay Görünümü:** Manga okuma yönüne göre şekillenen, bölüm kapağını doğru oranda (1:1.41) gölge efektiyle (drop shadow) sabitleyen yeni bir sayfa yönetim arayüzü tasarlandı.
+
+- **Görsel Motor & Layout Optimizasyonu:**
+    - **High-Res Rendering:** Resimlerin piksellenme sorununu çözen donanımsal yumuşatma (`smooth=true`) ve önbellekleme sistemi Manga Galeri ve Detay ekranlarına entegre edildi. CSS sınırlamaları kaldırılarak HD kapaklara (230x324 ve 250x352) geçildi.
+    - **Dynamic Grid (3-Column):** Manga Galerisi arayüzü, kapakların yazıları ezmesini engelleyecek şekilde ferahlatılarak (40px boşluk) 3'lü matris yapısına oturtuldu.
+    - **Object-Fit Cover Simülasyonu:** Resim Galerisi için, farklı en-boy oranlarındaki resimleri esnetmeden kusursuz 230x230 karelere kırpan `Rectangle` + `ImagePattern` mimarisi hazırlandı.
+
+- **Açık Kaynak & GitHub:**
+    - Projenin vizyonunu, özelliklerini ve derleme talimatlarını içeren profesyonel bir `README.md` yazıldı ve global GitHub vitrinine uygun hale getirildi.
 
 ---
 

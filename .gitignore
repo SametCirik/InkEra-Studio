@@ -1,4 +1,28 @@
-# --- Maven ---
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -10,24 +34,16 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# --- IDE (VS Code) ---
-.vscode/
+# IDEs (IntelliJ, VSCode, Eclipse)
 .idea/
 *.iml
 *.iws
+.vscode/
 .classpath
 .project
 .settings/
 bin/
 
-# --- İşletim Sistemi Kalıntıları ---
-.DS_Store
-Thumbs.db
-*~
-
-# --- InkEra Studio Yerel Verileri (ÇOK ÖNEMLİ) ---
-user-data/
-*.log
-
-# --- Obsidian (Obsidian temaları vb.) ---
-.obsidian/
+# InkEra Local User Data (Dosyalar gitmesin ama klasör yapısı gitsin)
+user-data/projects/*.json
+user-data/images/*.json

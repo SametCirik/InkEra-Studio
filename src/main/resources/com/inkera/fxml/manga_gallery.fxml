@@ -15,14 +15,16 @@
     <HBox alignment="CENTER_LEFT">
         <Label text="%manga.title" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
         <Region HBox.hgrow="ALWAYS"/>
-        </HBox>
+    </HBox>
 
     <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
         <content>
-            <FlowPane fx:id="projectsFlowPane" hgap="30" vgap="30" style="-fx-background-color: transparent;">
+            <!-- GÜNCELLENDİ: hgap ve vgap 40 yapılarak aralarındaki boşluk ferahlatıldı, taşmaları önlemek için ufak bir padding eklendi -->
+            <FlowPane fx:id="projectsFlowPane" hgap="40" vgap="40" style="-fx-background-color: transparent; -fx-padding: 10 10 20 10;">
                 
                 <VBox fx:id="newProjectCard" styleClass="manga-card" spacing="12">
-                    <StackPane prefWidth="160" prefHeight="240" styleClass="manga-card-cover, new-project-cover">
+                    <!-- GÜNCELLENDİ: Yeni Proje kartı ölçüleri 230x324 olarak eşitlendi -->
+                    <StackPane prefWidth="230" prefHeight="324" styleClass="manga-card-cover, new-project-cover">
                         <Label text="+" style="-fx-text-fill: #555; -fx-font-size: 48px; -fx-font-weight: bold;"/>
                     </StackPane>
                     <VBox alignment="CENTER" spacing="4">

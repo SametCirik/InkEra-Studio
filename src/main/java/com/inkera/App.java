@@ -5,13 +5,14 @@ import java.io.IOException;
 import com.inkera.core.config.ConfigService;
 import com.inkera.services.LocaleManager;
 import com.inkera.ui.controllers.WorkspaceController;
-// ResizeHelper importunu kaldırdık çünkü artık boyutlandırmayı kapatıyoruz
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -33,7 +34,9 @@ public class App extends Application {
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED); 
         stage.setScene(scene);
+        
         stage.show();
+        forceCenterOnScreen(stage);
     }
 
     public static void showHome() {
@@ -49,25 +52,23 @@ public class App extends Application {
                 loader.setResources(LocaleManager.getInstance().getBundle());
                 Parent root = loader.load();
 
-                // 1. Önce Pencere Stilini Ayarla
                 if (useCustomTitleBar) {
                     homeStage.initStyle(StageStyle.UNDECORATED);
                 } else {
                     homeStage.initStyle(StageStyle.DECORATED);
                 }
 
-                // 2. Scene'i oluştur ve Stage'e bağla (YENİ: Boyutlar 1150x800 olarak sabitlendi)
                 Scene scene = new Scene(root, 1150, 800);
                 homeStage.setTitle("InkEra Studio - Home");
                 homeStage.setScene(scene);
 
-                // YENİ: Pencerenin yeniden boyutlandırılmasını (ve maximize edilmesini) engelle
-                homeStage.setResizable(false);
+                homeStage.setMinWidth(1150);
+                homeStage.setMaxWidth(1150);
+                homeStage.setMinHeight(800);
+                homeStage.setMaxHeight(800);
 
-                // ResizeHelper çağrısını KALDIRDIK çünkü pencerenin boyutlandırılmasını istemiyoruz
-
-                homeStage.centerOnScreen();
                 homeStage.show();
+                forceCenterOnScreen(homeStage);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -95,25 +96,32 @@ public class App extends Application {
                 WorkspaceController controller = loader.getController();
                 controller.setCanvasSize(width, height);
 
-                // 1. Önce Pencere Stilini Ayarla
                 if (useCustomTitleBar) {
                     workspaceStage.initStyle(StageStyle.UNDECORATED);
                 } else {
                     workspaceStage.initStyle(StageStyle.DECORATED);
                 }
                 
-                // Şimdilik Workspace ekranını da sabitliyoruz (İleride değiştirilebilir)
                 Scene scene = new Scene(root, 1150, 800);
                 workspaceStage.setTitle("InkEra Studio - " + name);  
                 workspaceStage.setScene(scene);
                 workspaceStage.setResizable(false);
 
-                workspaceStage.centerOnScreen();
                 workspaceStage.show();
+                forceCenterOnScreen(workspaceStage);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+    }
+
+    // YENİ METOT: KWin'i atlayıp pencereyi matematiksel olarak ekranın tam ortasına zorla kilitler
+    private static void forceCenterOnScreen(Stage stage) {
+        Platform.runLater(() -> {
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((bounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((bounds.getHeight() - stage.getHeight()) / 2);
         });
     }
 

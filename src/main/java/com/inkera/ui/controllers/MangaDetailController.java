@@ -156,8 +156,18 @@ public class MangaDetailController {
             File posterFile = new File(currentProject.getProjectPath() + "/.inkera/poster.png");
             if (posterFile.exists()) {
                 String imageUri = posterFile.toURI().toString() + "?time=" + System.currentTimeMillis();
-                Image coverImage = new Image(imageUri);
+                
+                // GÜNCELLENDİ: HD Çözünürlük ve Yumuşatma parametreleri eklendi (250x352)
+                Image coverImage = new Image(imageUri, 250, 352, false, true);
                 coverImageView.setImage(coverImage);
+                coverImageView.setSmooth(true);
+                coverImageView.setCache(true);
+                
+                // GÜNCELLENDİ: Poster hissiyatı için köşeleri ovalleştiriyoruz
+                javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(250, 352);
+                clip.setArcWidth(16);
+                clip.setArcHeight(16);
+                coverImageView.setClip(clip);
             } else {
                 coverImageView.setImage(null);
             }
@@ -209,7 +219,6 @@ public class MangaDetailController {
         
         hbox.getChildren().addAll(idLabel, infoBox, spacer, editBtn);
         
-        // Sol Tık -> Detaya Git
         hbox.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 openChapterDetail(chapter);
@@ -217,7 +226,6 @@ public class MangaDetailController {
         });
         editBtn.setOnAction(e -> openChapterDetail(chapter));
         
-        // Sağ Tık Menüsü -> Bölümü Sil
         ContextMenu contextMenu = new ContextMenu();
         MenuItem deleteItem = new MenuItem("Bölümü Sil");
         deleteItem.setStyle("-fx-text-fill: #ff5252; -fx-font-weight: bold;");

@@ -18,9 +18,10 @@
     <HBox VBox.vgrow="ALWAYS">
         <VBox spacing="20" alignment="TOP_CENTER" prefWidth="350" minWidth="350" maxWidth="350" style="-fx-padding: 30; -fx-background-color: #2b2b2b; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 5, 0);">
 
-            <StackPane alignment="CENTER" maxWidth="200" maxHeight="280" styleClass="detail-cover" onMouseClicked="#handleChangeCover">
+            <!-- GÜNCELLENDİ: Kapak ebatları 250x352 olarak büyütüldü. Boşken bile şık dursun diye koyu arka plan verildi. -->
+            <StackPane alignment="CENTER" prefWidth="250" prefHeight="352" minWidth="250" minHeight="352" maxWidth="250" maxHeight="352" styleClass="detail-cover" onMouseClicked="#handleChangeCover" style="-fx-cursor: hand; -fx-background-color: #202020; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #333;">
                 <Label text="Kapak Ekle / Değiştir" style="-fx-text-fill: #555; -fx-font-weight: bold;"/>
-                <ImageView fx:id="coverImageView" fitWidth="200" fitHeight="280" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0);"/>
+                <ImageView fx:id="coverImageView" fitWidth="250" fitHeight="352" preserveRatio="false" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0);"/>
             </StackPane>
 
             <VBox spacing="5" alignment="CENTER">
