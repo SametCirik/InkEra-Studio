@@ -47,3 +47,6 @@ bin/
 # InkEra Local User Data (Dosyalar gitmesin ama klasör yapısı gitsin)
 user-data/projects/*.json
 user-data/images/*.json
+
+# C++ Build Files
+src/main/cpp/build/

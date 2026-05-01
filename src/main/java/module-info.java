@@ -13,4 +13,6 @@ module com.inkera {
     
     // Dış dünyaya aç
     exports com.inkera;
+    opens com.inkera.ui.workspace to javafx.fxml;
+    exports com.inkera.ui.workspace;
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.Canvas?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inkera.ui.workspace.WorkspaceController" style="-fx-background-color: #121212;">
+    
+    <BorderPane>
+        <top>
+            <Region style="-fx-background-color: #555555; -fx-min-height: 1; -fx-max-height: 1;" />
+        </top>
+
+        <left>
+            <VBox minWidth="45" maxWidth="45" style="-fx-background-color: #252526; -fx-border-color: #333; -fx-border-width: 0 1 0 0;">
+                <VBox alignment="TOP_CENTER" style="-fx-padding: 15 0 0 0;">
+                    <Button fx:id="leftMenuBtn" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 0;" />
+                </VBox>
+                <VBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+                    <Button text="✎" style="-fx-background-color: #333; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 4; -fx-min-width: 32; -fx-min-height: 32;" />
+                    <Button text="▱" style="-fx-background-color: transparent; -fx-text-fill: #aaa; -fx-cursor: hand; -fx-min-width: 32; -fx-min-height: 32;" />
+                    <Button text="🪣" style="-fx-background-color: transparent; -fx-text-fill: #aaa; -fx-cursor: hand; -fx-min-width: 32; -fx-min-height: 32;" />
+                </VBox>
+            </VBox>
+        </left>
+
+        <center>
+            <Pane fx:id="infiniteWorkspace" style="-fx-background-color: #2e2e2e; -fx-cursor: open_hand;">
+                <!-- GÜNCELLENDİ: Border kaldırıldı -->
+                <StackPane fx:id="paperStack" style="-fx-background-color: white;" maxHeight="-Infinity" maxWidth="-Infinity">
+                    <Canvas fx:id="drawingCanvas" />
+                </StackPane>
+            </Pane>
+        </center>
+
+        <right>
+            <VBox minWidth="45" maxWidth="45" style="-fx-background-color: #252526; -fx-border-color: #333; -fx-border-width: 0 0 0 1;">
+                <VBox alignment="TOP_CENTER" style="-fx-padding: 15 0 0 0;">
+                    <Button fx:id="rightMenuBtn" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 0;" />
+                </VBox>
+                <VBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+                    <Button text="📚" style="-fx-background-color: transparent; -fx-text-fill: #aaa; -fx-cursor: hand; -fx-min-width: 32; -fx-min-height: 32;" />
+                    <Button text="⚙" style="-fx-background-color: transparent; -fx-text-fill: #aaa; -fx-cursor: hand; -fx-min-width: 32; -fx-min-height: 32;" />
+                </VBox>
+            </VBox>
+        </right>
+    </BorderPane>
+
+    <!-- ÜST KATMAN: YÜZEN PANELLER -->
+    <AnchorPane pickOnBounds="false">
+        <VBox fx:id="leftFloatingPanel" AnchorPane.leftAnchor="45" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" minWidth="280" maxWidth="280" style="-fx-background-color: #2d2d2d; -fx-border-color: #444; -fx-border-width: 0 1 0 0; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 5, 0);">
+            <HBox alignment="CENTER_LEFT" style="-fx-padding: 15; -fx-background-color: #252526; -fx-border-color: #333; -fx-border-width: 0 0 1 0;">
+                <Label text="Araç Ayarları" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+            </HBox>
+            <VBox style="-fx-padding: 15;" spacing="10">
+                <Label text="Renk Paleti ve Fırça ayarları buraya gelecek." style="-fx-text-fill: #888; -fx-wrap-text: true;"/>
+            </VBox>
+        </VBox>
+
+        <VBox fx:id="rightFloatingPanel" AnchorPane.rightAnchor="45" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" minWidth="280" maxWidth="280" style="-fx-background-color: #2d2d2d; -fx-border-color: #444; -fx-border-width: 0 0 0 1; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, -5, 0);">
+            <HBox alignment="CENTER_LEFT" style="-fx-padding: 15; -fx-background-color: #252526; -fx-border-color: #333; -fx-border-width: 0 0 1 0;">
+                <Label text="Katmanlar (Layers)" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+            </HBox>
+            <VBox style="-fx-padding: 15;" spacing="10">
+                <Label text="Katman yığını ve filtreler buraya gelecek." style="-fx-text-fill: #888; -fx-wrap-text: true;"/>
+            </VBox>
+        </VBox>
+    </AnchorPane>
+</StackPane>

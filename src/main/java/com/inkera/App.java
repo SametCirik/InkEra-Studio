@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.inkera.core.config.ConfigService;
 import com.inkera.services.LocaleManager;
-import com.inkera.ui.controllers.WorkspaceController;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -80,37 +79,31 @@ public class App extends Application {
         showHome();
     }
 
-    public static void showWorkspace(String name, int width, int height) {
-        Platform.runLater(() -> {
+    public static void showWorkspace(String projectName, int width, int height) {
+        javafx.application.Platform.runLater(() -> {
             try {
-                if (currentStage != null) currentStage.close();
-                if (splashStage != null) splashStage.close();
-
-                Stage workspaceStage = new Stage();
-                currentStage = workspaceStage;
-
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/inkera/fxml/workspace.fxml"));
-                loader.setResources(LocaleManager.getInstance().getBundle());
-                Parent root = loader.load();
-
-                WorkspaceController controller = loader.getController();
-                controller.setCanvasSize(width, height);
-
-                if (useCustomTitleBar) {
-                    workspaceStage.initStyle(StageStyle.UNDECORATED);
-                } else {
-                    workspaceStage.initStyle(StageStyle.DECORATED);
-                }
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(App.class.getResource("/com/inkera/fxml/workspace/workspace_main.fxml"));
+                javafx.scene.Parent workspaceRoot = loader.load();
                 
-                Scene scene = new Scene(root, 1150, 800);
-                workspaceStage.setTitle("InkEra Studio - " + name);  
+                com.inkera.ui.workspace.WorkspaceController controller = loader.getController();
+                // Parametrelerden gelen saf genişlik ve yüksekliği doğrudan veriyoruz
+                controller.setCanvasSize(width, height);
+                
+                // YENİ: Çizim ekranı için yepyeni, özgür bir pencere oluşturuyoruz!
+                javafx.stage.Stage workspaceStage = new javafx.stage.Stage();
+                workspaceStage.setTitle("InkEra Studio - " + projectName); // Doğrudan parametreden gelen ismi kullanıyoruz
+                
+                javafx.scene.Scene scene = new javafx.scene.Scene(workspaceRoot, 1280, 720);
+                scene.getStylesheets().add(App.class.getResource("/com/inkera/styles/style.css").toExternalForm());
+                
                 workspaceStage.setScene(scene);
-                workspaceStage.setResizable(false);
-
+                workspaceStage.setMinWidth(800);
+                workspaceStage.setMinHeight(600);
+                workspaceStage.setResizable(true); // TAM EKRAN KISITI KALKTI!
+                workspaceStage.setMaximized(true);
                 workspaceStage.show();
-                forceCenterOnScreen(workspaceStage);
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
