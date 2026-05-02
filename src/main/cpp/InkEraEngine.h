@@ -3,10 +3,9 @@
 
 #include <stdint.h>
 
-// Java'nın Project Panama üzerinden bu fonksiyonu bulabilmesi için name-mangling'i kapatıyoruz
 extern "C" {
-    // Tuval piksellerini dolduracak test fonksiyonumuz
-    void renderTestGradient(uint32_t* pixelBuffer, int width, int height);
+    // Tuvali dışarıdan (Java'dan) gönderilen spesifik bir renkle doldurur
+    void clearCanvas(uint32_t* pixelBuffer, int width, int height, uint32_t colorArgb);
 }
 
 #endif // INKERA_ENGINE_H
