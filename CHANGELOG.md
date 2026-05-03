@@ -3,8 +3,23 @@
 ---
 
 **Oluşturulma Tarihi:** 2026-02-12  
-**Son Değiştirilme Tarihi:** 2026-04-29  
+**Son Değiştirilme Tarihi:** 2026-05-03 
 **Düzenleyen:** Samet Cırık & Google Gemini
+
+---
+
+## 2026-05-03
+
+- **Eklenenler**
+    - **C++ Çizim Motoru:** Project Panama kullanılarak JavaFX ile sıfır gecikmeli (zero-copy) iletişim kuran, yüksek performanslı C++ render motoru entegre edildi.
+    - **Çoklu Katman (Layer) Mimarisi:** `LayerManager` sınıfı ile desteklenen, her biri kendi piksel belleğine (vector<uint32_t>) sahip bağımsız katman sistemi oluşturuldu.
+    - **Gelişmiş Katman Paneli (UI):** Arayüze katmanları görünür/görünmez yapma, silme ve sürükle-bırak (Drag & Drop) ile hiyerarşi değiştirme yeteneklerine sahip özel hücre (Custom ListCell) yapısı eklendi.
+    - **Bresenham Çizgi Algoritması:** Yüksek hızlı fare/kalem hareketlerinde (polling rate kaynaklı) oluşan piksel boşluklarını matematiksel olarak kusursuzca dolduran algoritma motor seviyesinde uygulandı.
+
+- **Düzeltilenler / Optimizasyonlar**
+    - **Dinamik Zoom Koruması:** Culling sorununu ve GPU doku sınırını (8192x8192) aşmayı önlemek için, kanvas boyutuna göre kendini otomatik limitleyen matematiksel zoom koruması getirildi.
+    - **Bölgesel Render (Regional Rendering):** JavaFX tarafındaki bellek darboğazını ve yarım saniyelik kasmaları çözmek için, `AnimationTimer` destekli 60 FPS sabitleyici ve C++ tarafında sadece "Kirli Dikdörtgen" (Dirty Region) alanını işleyen üst düzey optimizasyon kodlandı.
+    - **Linux/Wayland Donanım İvmelendirmesi:** Arch Linux ve Mesa sürücülerinde yaşanan `NullPointerException`, ekranda yırtılma (tearing) ve donanımsal reddedilme sorunları; JavaFX'in `es2` (OpenGL) motoru ve `forceGPU` bayrakları zorlanarak kalıcı olarak çözüldü.
 
 ---
 
@@ -21,7 +36,7 @@
     - **JavaFX Odak (Focus) Hatası:** Dinamik donanım taraması bittiğinde `ScrollPane`'in istemsizce aşağı kayma sorunu, `Platform.runLater` kullanılarak ve odak zorlanarak çözüldü.
     - **Arayüz Renk Tutarlılığı:** Tablet ayarlarındaki renk paleti agresif kırmızılardan stüdyo standartlarına uygun koyu gri (`#444`) ve kırık beyaz (`#e0e0e0`) tonlarına revize edildi.
 
---
+---
 
 ## 2026-04-30
 
