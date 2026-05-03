@@ -24,7 +24,6 @@
         <center>
             <Pane fx:id="infiniteWorkspace" style="-fx-background-color: #2e2e2e; -fx-cursor: open_hand;">
                 <StackPane fx:id="paperStack" style="-fx-background-color: white;" maxHeight="-Infinity" maxWidth="-Infinity">
-                    <!-- GÜNCELLENDİ: smooth="false" ile Anti-Aliasing kapatıldı. Piksel Art için kusursuz! -->
                     <ImageView fx:id="canvasImageView" smooth="false" />
                 </StackPane>
             </Pane>
@@ -41,22 +40,21 @@
             </VBox>
         </right>
     </BorderPane>
-    <!-- YÜZEN PANELLER -->
     <AnchorPane pickOnBounds="false">
         <VBox fx:id="leftFloatingPanel" AnchorPane.leftAnchor="45" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" minWidth="280" maxWidth="280" style="-fx-background-color: #2d2d2d; -fx-border-color: #444; -fx-border-width: 0 1 0 0; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 5, 0);">
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 15; -fx-background-color: #252526; -fx-border-color: #333; -fx-border-width: 0 0 1 0;">
                 <Label text="Araç Ayarları" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
             </HBox>
-            <VBox style="-fx-padding: 15;" spacing="10">
-                <Label text="Renk Paleti ve Fırça ayarları buraya gelecek." style="-fx-text-fill: #888; -fx-wrap-text: true;"/>
-            </VBox>
         </VBox>
         <VBox fx:id="rightFloatingPanel" AnchorPane.rightAnchor="45" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" minWidth="280" maxWidth="280" style="-fx-background-color: #2d2d2d; -fx-border-color: #444; -fx-border-width: 0 0 0 1; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, -5, 0);">
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 15; -fx-background-color: #252526; -fx-border-color: #333; -fx-border-width: 0 0 1 0;">
                 <Label text="Katmanlar (Layers)" style="-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="addLayerBtn" text="+" style="-fx-background-color: #444; -fx-text-fill: white; -fx-cursor: hand;" />
             </HBox>
-            <VBox style="-fx-padding: 15;" spacing="10">
-                <Label text="Katman yığını ve filtreler buraya gelecek." style="-fx-text-fill: #888; -fx-wrap-text: true;"/>
+            <VBox style="-fx-padding: 10;" VBox.vgrow="ALWAYS">
+                <!-- KATMANLAR LİSTESİ -->
+                <ListView fx:id="layerListView" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-control-inner-background: #333; -fx-control-inner-background-alt: #333; -fx-text-fill: white;" />
             </VBox>
         </VBox>
     </AnchorPane>

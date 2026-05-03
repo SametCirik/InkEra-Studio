@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CHANGELOG.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CHANGELOG"
+              "title": "README"
             }
           }
         ]
@@ -185,6 +185,8 @@
   },
   "active": "9091b38e1a22b03e",
   "lastOpenFiles": [
+    "ATTENTION.md",
+    "CHANGELOG.md",
     "user-data/projects/d4fb6c89-4ff7-47da-9db3-c6d30727a0ce.json",
     "user-data/projects/11cae9ef-f782-46ff-b58e-f71a243425cd.json",
     "user-data/projects/07b30d9e-728e-43b4-943f-b79043658bbe.json",
@@ -195,7 +197,6 @@
     "user-data/images/InkEra Örnek Çizim.json",
     "user-data/images/Örnek Proje.json",
     "user-data/images",
-    "target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst",
     "target/classes/com/inkera/assets/AppLogo.png",
     "target/classes/com/inkera/assets/emptyIcon.png",
     "target/classes/com/inkera/assets/WorldIcon.png",
@@ -206,7 +207,6 @@
     "target/classes/com/inkera/assets/AppLogo_.png",
     "target/classes/com/inkera/assets/eye-closed.png",
     "target/classes/com/inkera/assets/icons/tools/Icon_Lasso.png",
-    "CHANGELOG.md",
     "README.md.md",
     "silinecek örnek markdown.md"
   ]
