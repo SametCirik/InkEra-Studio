@@ -5,13 +5,22 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelBuffer;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -27,12 +36,20 @@ import java.util.ResourceBundle;
 
 public class WorkspaceController implements Initializable {
 
+    // YENİ: Listede tutacağımız veri modeli
+    public static class LayerData {
+        public String name;
+        public boolean visible = true;
+        public LayerData(String name) { this.name = name; }
+        @Override public String toString() { return name; }
+    }
+
     @FXML private Button leftMenuBtn, rightMenuBtn;
     @FXML private VBox leftFloatingPanel, rightFloatingPanel;
     @FXML private Pane infiniteWorkspace;
     @FXML private StackPane paperStack;
     @FXML private ImageView canvasImageView;
-    @FXML private ListView<String> layerListView;
+    @FXML private ListView<LayerData> layerListView; // String yerine Model tutuyor
     @FXML private Button addLayerBtn;
     
     private boolean isLeftOpen = false, isRightOpen = false, userInteracted = false; 
@@ -40,20 +57,17 @@ public class WorkspaceController implements Initializable {
     private double currentScale = 1.0, translateX = 0.0, translateY = 0.0;
     private final double ZOOM_FACTOR = 1.15;
     private double dynamicMaxZoom = 1.0; 
-    private double lastPanX, lastPanY;
+    private double lastPanX, lastPanY, lastDrawX = -1, lastDrawY = -1;
 
-    private double lastDrawX = -1;
-    private double lastDrawY = -1;
-
-    // Sadece bu basit bayrak GPU'yu kontrol edecek
     private boolean needsRender = false;
     private AnimationTimer renderTimer;
-
     private Arena arena;
     private MemorySegment pixelSegment;
     private PixelBuffer<IntBuffer> pixelBuffer;
     
     private MethodHandle clearCanvasMH, usePencilMH, addNewLayerMH, setActiveLayerMH;
+    // YENİ PRO KÖPRÜLER
+    private MethodHandle setLayerVisibilityMH, deleteLayerMH, moveLayerMH;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,13 +95,11 @@ public class WorkspaceController implements Initializable {
         infiniteWorkspace.setClip(clipRect);
     }
 
-    // Mesa sürücü hatasını ezen saf 60 FPS motor
     private void setupRenderEngine() {
         renderTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (needsRender && pixelBuffer != null) {
-                    // b -> null demek: "Tüm belleği güvenle GPU'ya aktar". Hatalı bölgesel güncellemeleri çözer.
                     pixelBuffer.updateBuffer(b -> null);
                     needsRender = false;
                 }
@@ -96,9 +108,96 @@ public class WorkspaceController implements Initializable {
         renderTimer.start();
     }
 
+    // --- YENİ PRO KATMAN ARAYÜZÜ (CUSTOM CELL) ---
     private void setupLayerUI() {
-        layerListView.getItems().add("Katman 1");
+        layerListView.getItems().add(new LayerData("Katman 1"));
         layerListView.getSelectionModel().selectFirst();
+        
+        layerListView.setCellFactory(lv -> new ListCell<>() {
+            private final HBox root = new HBox(10);
+            private final Button visibilityBtn = new Button("👁");
+            private final Label nameLabel = new Label();
+            private final Button deleteBtn = new Button("🗑");
+            private final Region spacer = new Region();
+
+            {
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+                root.setAlignment(Pos.CENTER_LEFT);
+                visibilityBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #aaa; -fx-cursor: hand; -fx-padding: 0 5 0 0;");
+                deleteBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #ff5555; -fx-cursor: hand; -fx-padding: 0 0 0 5;");
+                nameLabel.setStyle("-fx-text-fill: white; -fx-font-size: 13px;");
+                root.getChildren().addAll(visibilityBtn, nameLabel, spacer, deleteBtn);
+                root.setStyle("-fx-padding: 5;");
+
+                visibilityBtn.setOnAction(e -> {
+                    LayerData item = getItem();
+                    if (item != null) {
+                        item.visible = !item.visible;
+                        visibilityBtn.setText(item.visible ? "👁" : "🕶");
+                        nameLabel.setOpacity(item.visible ? 1.0 : 0.5);
+                        triggerCPPAction(setLayerVisibilityMH, getIndex(), item.visible);
+                    }
+                });
+
+                deleteBtn.setOnAction(e -> {
+                    if (getItem() != null && getListView().getItems().size() > 1) {
+                        triggerCPPAction(deleteLayerMH, getIndex());
+                        getListView().getItems().remove(getItem());
+                    }
+                });
+
+                // Sürükle Bırak (Drag & Drop) Mimari Bağlantısı
+                setOnDragDetected(event -> {
+                    if (getItem() == null) return;
+                    Dragboard db = startDragAndDrop(TransferMode.MOVE);
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(String.valueOf(getIndex()));
+                    db.setContent(content);
+                    event.consume();
+                });
+
+                setOnDragOver(event -> {
+                    if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+                        event.acceptTransferModes(TransferMode.MOVE);
+                        setStyle("-fx-border-color: #66afeb; -fx-border-width: 0 0 2 0;"); 
+                    }
+                    event.consume();
+                });
+                
+                setOnDragExited(event -> setStyle("-fx-border-width: 0;"));
+
+                setOnDragDropped(event -> {
+                    Dragboard db = event.getDragboard();
+                    if (db.hasString()) {
+                        int fromIdx = Integer.parseInt(db.getString());
+                        int toIdx = getIndex();
+                        if (fromIdx != toIdx) {
+                            LayerData movingItem = getListView().getItems().get(fromIdx);
+                            getListView().getItems().remove(fromIdx);
+                            getListView().getItems().add(toIdx, movingItem);
+                            getListView().getSelectionModel().select(toIdx);
+                            triggerCPPMove(fromIdx, toIdx);
+                        }
+                        event.setDropCompleted(true);
+                    } else { event.setDropCompleted(false); }
+                    event.consume();
+                });
+            }
+
+            @Override
+            protected void updateItem(LayerData item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    nameLabel.setText(item.name);
+                    visibilityBtn.setText(item.visible ? "👁" : "🕶");
+                    nameLabel.setOpacity(item.visible ? 1.0 : 0.5);
+                    setGraphic(root);
+                }
+            }
+        });
+
         layerListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldV, newV) -> {
             if (newV != null && newV.intValue() >= 0) {
                 try { if (setActiveLayerMH != null) setActiveLayerMH.invokeExact(newV.intValue()); } catch (Throwable t) {}
@@ -107,7 +206,7 @@ public class WorkspaceController implements Initializable {
 
         addLayerBtn.setOnAction(e -> {
             int newIndex = layerListView.getItems().size() + 1;
-            layerListView.getItems().add("Katman " + newIndex);
+            layerListView.getItems().add(new LayerData("Katman " + newIndex));
             layerListView.getSelectionModel().selectLast();
             try {
                 int w = Math.max((int) paperStack.getPrefWidth(), 64);
@@ -120,6 +219,30 @@ public class WorkspaceController implements Initializable {
         });
     }
 
+    // Java'dan C++'a Tek Satırlık Fonksiyon Köprüleri
+    private void triggerCPPAction(MethodHandle handle, int index) {
+        if (handle == null || pixelSegment == null) return;
+        try {
+            handle.invokeExact(pixelSegment, Math.max((int) paperStack.getPrefWidth(), 64), Math.max((int) paperStack.getPrefHeight(), 64), index);
+            needsRender = true;
+        } catch (Throwable t) { t.printStackTrace(); }
+    }
+    private void triggerCPPAction(MethodHandle handle, int index, boolean flag) {
+        if (handle == null || pixelSegment == null) return;
+        try {
+            handle.invokeExact(pixelSegment, Math.max((int) paperStack.getPrefWidth(), 64), Math.max((int) paperStack.getPrefHeight(), 64), index, flag);
+            needsRender = true;
+        } catch (Throwable t) { t.printStackTrace(); }
+    }
+    private void triggerCPPMove(int fromIndex, int toIndex) {
+        if (moveLayerMH == null || pixelSegment == null) return;
+        try {
+            moveLayerMH.invokeExact(pixelSegment, Math.max((int) paperStack.getPrefWidth(), 64), Math.max((int) paperStack.getPrefHeight(), 64), fromIndex, toIndex);
+            needsRender = true;
+        } catch (Throwable t) { t.printStackTrace(); }
+    }
+    // ---------------------------------------------
+
     private void loadCEngine() {
         try {
             System.load(System.getProperty("user.dir") + "/src/main/cpp/build/libinkera_engine.so");
@@ -130,6 +253,11 @@ public class WorkspaceController implements Initializable {
             addNewLayerMH = linker.downcallHandle(lookup.find("addNewLayer").get(), FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
             setActiveLayerMH = linker.downcallHandle(lookup.find("setActiveLayer").get(), FunctionDescriptor.ofVoid(ValueLayout.JAVA_INT));
             usePencilMH = linker.downcallHandle(lookup.find("usePencil").get(), FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
+            
+            // YENİ BAĞLANTILAR
+            setLayerVisibilityMH = linker.downcallHandle(lookup.find("setLayerVisibility").get(), FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_BOOLEAN));
+            deleteLayerMH = linker.downcallHandle(lookup.find("deleteLayer").get(), FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
+            moveLayerMH = linker.downcallHandle(lookup.find("moveLayer").get(), FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
                 
         } catch (Exception e) { e.printStackTrace(); }
     }
@@ -137,8 +265,7 @@ public class WorkspaceController implements Initializable {
     private void setupDrawingEngine() {
         canvasImageView.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown()) {
-                lastDrawX = event.getX();
-                lastDrawY = event.getY();
+                lastDrawX = event.getX(); lastDrawY = event.getY();
                 drawAtPixel(lastDrawX, lastDrawY, event.getX(), event.getY());
             }
         });
@@ -146,31 +273,18 @@ public class WorkspaceController implements Initializable {
         canvasImageView.setOnMouseDragged(event -> {
             if (event.isPrimaryButtonDown() && lastDrawX != -1 && lastDrawY != -1) {
                 drawAtPixel(lastDrawX, lastDrawY, event.getX(), event.getY());
-                lastDrawX = event.getX();
-                lastDrawY = event.getY();
+                lastDrawX = event.getX(); lastDrawY = event.getY();
             }
         });
 
-        canvasImageView.setOnMouseReleased(event -> {
-            lastDrawX = -1;
-            lastDrawY = -1;
-        });
+        canvasImageView.setOnMouseReleased(event -> { lastDrawX = -1; lastDrawY = -1; });
     }
 
     private void drawAtPixel(double startX, double startY, double endX, double endY) {
         if (usePencilMH == null || pixelSegment == null) return;
-        
-        int x0 = (int) startX; int y0 = (int) startY;
-        int x1 = (int) endX;   int y1 = (int) endY;
-        
-        int bufferWidth = Math.max((int) paperStack.getPrefWidth(), 64);
-        int bufferHeight = Math.max((int) paperStack.getPrefHeight(), 64);
-        int colorArgb = 0xFF000000;
-
         try {
-            // C++ sadece o minik kutucuğu renderlayacak, ışık hızında bitecek!
-            usePencilMH.invokeExact(pixelSegment, bufferWidth, bufferHeight, x0, y0, x1, y1, colorArgb);
-            needsRender = true; // Timer'a "Ekrana bas" sinyalini yolla
+            usePencilMH.invokeExact(pixelSegment, Math.max((int) paperStack.getPrefWidth(), 64), Math.max((int) paperStack.getPrefHeight(), 64), (int) startX, (int) startY, (int) endX, (int) endY, 0xFF000000);
+            needsRender = true;
         } catch (Throwable t) { t.printStackTrace(); }
     }
 
@@ -187,11 +301,8 @@ public class WorkspaceController implements Initializable {
             userInteracted = true; 
             double scaleMultiplier = (event.getDeltaY() > 0) ? ZOOM_FACTOR : 1 / ZOOM_FACTOR;
             double newScale = Math.max(0.05, Math.min(currentScale * scaleMultiplier, dynamicMaxZoom));
-            double mouseX = event.getX(), mouseY = event.getY();
-            double localX = (mouseX - translateX) / currentScale;
-            double localY = (mouseY - translateY) / currentScale;
-            translateX = mouseX - (localX * newScale);
-            translateY = mouseY - (localY * newScale);
+            translateX = event.getX() - ((event.getX() - translateX) / currentScale * newScale);
+            translateY = event.getY() - ((event.getY() - translateY) / currentScale * newScale);
             currentScale = newScale;
             updateMatrix();
         });
@@ -219,8 +330,7 @@ public class WorkspaceController implements Initializable {
     public void setCanvasSize(int width, int height) {
         if (arena != null) arena.close();
         arena = Arena.ofShared();
-        int bufferWidth = Math.max(width, 64);
-        int bufferHeight = Math.max(height, 64);
+        int bufferWidth = Math.max(width, 64); int bufferHeight = Math.max(height, 64);
         pixelSegment = arena.allocate((long) bufferWidth * bufferHeight * 4, 4);
         IntBuffer intBuf = pixelSegment.asByteBuffer().order(ByteOrder.nativeOrder()).asIntBuffer();
         pixelBuffer = new PixelBuffer<>(bufferWidth, bufferHeight, intBuf, PixelFormat.getIntArgbPreInstance());
@@ -228,23 +338,13 @@ public class WorkspaceController implements Initializable {
         canvasImageView.setImage(new WritableImage(pixelBuffer));
         canvasImageView.setViewport(new javafx.geometry.Rectangle2D(0, 0, width, height));
 
-        paperStack.setPrefSize(width, height);
-        paperStack.setMinSize(width, height);
-        paperStack.setMaxSize(width, height);
+        paperStack.setPrefSize(width, height); paperStack.setMinSize(width, height); paperStack.setMaxSize(width, height);
+        dynamicMaxZoom = Math.max(1.0, 8192.0 / Math.max(width, height));
         
-        double maxDimension = Math.max(width, height);
-        dynamicMaxZoom = Math.max(1.0, 8192.0 / maxDimension);
-        
-        clearViaCPP(bufferWidth, bufferHeight, 0xFFFFFFFF);
+        if (clearCanvasMH != null && pixelSegment != null) {
+            try { clearCanvasMH.invokeExact(pixelSegment, bufferWidth, bufferHeight, 0xFFFFFFFF); needsRender = true; } catch (Throwable t) {}
+        }
         Platform.runLater(this::autoCenterCanvas);
-    }
-
-    private void clearViaCPP(int w, int h, int color) {
-        if (clearCanvasMH == null || pixelSegment == null) return;
-        try { 
-            clearCanvasMH.invokeExact(pixelSegment, w, h, color); 
-            needsRender = true;
-        } catch (Throwable t) {}
     }
 
     private void autoCenterCanvas() {
@@ -252,10 +352,8 @@ public class WorkspaceController implements Initializable {
         double vw = infiniteWorkspace.getWidth(), vh = infiniteWorkspace.getHeight();
         if (vw <= 0 || vh <= 0) return;
         double cw = paperStack.getPrefWidth(), ch = paperStack.getPrefHeight();
-        currentScale = Math.min((vw - 100) / cw, (vh - 100) / ch);
-        currentScale = Math.min(currentScale, dynamicMaxZoom); 
-        translateX = (vw - (cw * currentScale)) / 2.0;
-        translateY = (vh - (ch * currentScale)) / 2.0;
+        currentScale = Math.min(Math.min((vw - 100) / cw, (vh - 100) / ch), dynamicMaxZoom); 
+        translateX = (vw - (cw * currentScale)) / 2.0; translateY = (vh - (ch * currentScale)) / 2.0;
         updateMatrix();
     }
 
