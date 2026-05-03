@@ -3,7 +3,7 @@
 ---
 
 **Oluşturulma Tarihi:** 2026-02-12  
-**Son Değiştirilme Tarihi:** 2026-05-03 
+**Son Değiştirilme Tarihi:** 2026-05-03
 **Düzenleyen:** Samet Cırık & Google Gemini
 
 ---
