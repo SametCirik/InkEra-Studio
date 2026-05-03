@@ -1,4 +1,6 @@
-# InkEra Studio
+<h1 align="center">
+  InkEra Studio
+</h1>
 
 <div align="center">
   <p><strong>An open-source, professional-grade manga and comic creation studio tailored for Linux.</strong></p>
