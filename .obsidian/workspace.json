@@ -11,14 +11,10 @@
             "id": "9091b38e1a22b03e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "preview",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Yeni sekme"
             }
           }
         ]
@@ -185,6 +181,8 @@
   },
   "active": "9091b38e1a22b03e",
   "lastOpenFiles": [
+    "InkEra-Studio-Architecture.md",
+    "README.md",
     "ATTENTION.md",
     "CHANGELOG.md",
     "user-data/projects/d4fb6c89-4ff7-47da-9db3-c6d30727a0ce.json",

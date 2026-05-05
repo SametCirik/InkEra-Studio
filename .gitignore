@@ -50,3 +50,6 @@ user-data/images/*.json
 
 # C++ Build Files
 src/main/cpp/build/
+
+# Gizli Notlar
+*-secret.md
